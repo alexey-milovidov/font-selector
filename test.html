@@ -1,0 +1,1579 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Font test</title>
+    
+    <link rel="stylesheet" href="fonts.css"/>
+    
+    <style type="text/css">
+        li
+        {
+            font: 10pt Sans-Serif;
+            display: inline;
+            cursor: pointer;
+            background-color: #FEC;
+            padding: 0.1rem 0.5rem;
+            white-space: nowrap;
+            line-height: 2;
+            margin: 0.1rem;
+        }
+        
+        li.disabled, li.disabled:hover
+        {
+            background-color: #EEE;
+            color: #888;
+            cursor: not-allowed;
+        }
+        
+        li.no-cyrillic
+        {
+            opacity: 0.5;
+        }
+        
+        li.no-box-drawing
+        {
+            opacity: 0.5;
+        }
+        
+        li.selected, li.selected:hover
+        {
+            background-color: #FA4;
+            cursor: grabbing;
+        }
+
+        li:hover
+        {
+            background-color: #FAA;
+        }
+        
+        ul
+        {
+            margin-right: 3rem;
+        }
+        
+        html, body
+        {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        pre
+        {
+            font-size: 10pt;
+            font-family: Liberation Mono;
+        }
+        
+        #right-buttons
+        {
+            float: right;
+            font-size: 4rem;
+            margin-right: 3rem;
+        }
+        
+        #favorite
+        {
+            cursor: pointer;
+        }
+        
+        #trash
+        {
+            cursor: pointer;
+        }
+        
+        samp
+        {
+            font-family: inherit;
+        }
+        
+        pre#code-kdevelop
+        {
+            width: auto;
+            overflow-y: auto;
+        }
+       
+        pre#code-kdevelop samp
+        {
+            counter-increment: line;
+        }
+        
+        pre#code-kdevelop samp:before
+        {
+            content: counter(line);
+            display: inline-block;
+            width: 3em;
+            text-align: right;
+            border-right: 1px solid #ddd;
+            padding: 0 .5em 0 0;
+            margin-right: .5em;
+            color: #888
+        }
+        
+        pre#code-kdevelop i { color: #888; font-style: normal; }
+        pre#code-kdevelop i.doc { color: #00f; }
+        pre#code-kdevelop i.command { color: #CA60CA; font-weight: bold; font-style: normal;}
+        pre#code-kdevelop i.arg { color: #0095FF; font-weight: bold; font-style: normal;}
+        pre#code-kdevelop i.tag { color: #000; font-weight: bold; font-style: normal;}
+        pre#code-kdevelop i.verb { color: #888; }
+        pre#code-kdevelop i.command + .verb, pre#code-kdevelop i.command + a.verb { color: #f00; font-style: normal }
+        pre#code-kdevelop i a { color: #037; }
+        pre#code-kdevelop b { font-weight: bold; }
+        pre#code-kdevelop em { color: #0057AE; font-style:normal }
+        pre#code-kdevelop .string,  pre#code-kdevelop q { color: #BF0303; font-style: normal }
+        pre#code-kdevelop q::before , pre#code-kdevelop q::after { content:none; }
+        pre#code-kdevelop u { color: #006e28; text-decoration: none; }
+        pre#code-kdevelop var { color: #B08000; font-style: normal; }
+        pre#code-kdevelop dfn { font-style: normal }
+        pre#code-kdevelop .ref { color: #208 }
+        pre#code-kdevelop .type, pre#code-kdevelop #tooltip .type { color: #061 }
+        pre#code-kdevelop .typedef { color: #35938D }
+        pre#code-kdevelop .member { color: #B08000 }
+        pre#code-kdevelop .call { color: #207 }
+        pre#code-kdevelop .namespace, pre#code-kdevelop .enum { color: #862a38 }
+        pre#code-kdevelop .decl { color: #205; font-weight: bold; }
+        pre#code-kdevelop .col0 { color:#2400FF }
+        pre#code-kdevelop .col1 { color:#9C00FF }
+        pre#code-kdevelop .col2 { color:#D1008A }
+        pre#code-kdevelop .col3 { color:#FF0000 }
+        pre#code-kdevelop .col4 { color:#FF4F00 }
+        pre#code-kdevelop .col5 { color:#F69D00 }
+        pre#code-kdevelop .col6 { color:#72D200 }
+        pre#code-kdevelop .col7 { color:#00F718 }
+        pre#code-kdevelop .col8 { color:#00BBCD }
+        pre#code-kdevelop .col9 { color:#0053FF }
+        
+        pre#code-kdevelop.dark { background-color: #002b36; color: #839496; }
+        
+        pre#code-kdevelop.dark i { color: #268bd2; font-style: normal; }
+        pre#code-kdevelop.dark b { color: #859900;  font-weight: bold; }
+        pre#code-kdevelop.dark em { color: #b58900;  font-weight: bold; font-style: normal; }
+        pre#code-kdevelop.dark q { color: #2aa198; font-style: normal; }
+        pre#code-kdevelop.dark q::after { content: none; }
+        pre#code-kdevelop.dark u { color: #dc322f; text-decoration: none; }
+        pre#code-kdevelop.dark var { color: #2aa198; font-style: normal; }
+        pre#code-kdevelop.dark .ref, pre#code-kdevelop.dark .decl { color:#93a1a1 }
+        pre#code-kdevelop.dark .decl { font-weight: bold; }
+        pre#code-kdevelop.dark .namespace, pre#code-kdevelop.dark .enum, .typedef { color: #6c71c4; }
+        pre#code-kdevelop.dark .type { color: #b58900;}
+        pre#code-kdevelop.dark .local { color: #d33682; }
+        pre#code-kdevelop.dark .member { color: #cb4b16; }
+        pre#code-kdevelop.dark dfn { font-style: normal }
+        
+        pre#clickhouse-client
+        {
+            display: none;
+            background-color: black;
+            color: #b2b2b2;
+            padding: 0.1rem;
+        }
+        
+        pre#clickhouse-client b
+        {
+            font-weight: bold;
+            color: white;
+        }
+        
+        pre#clickhouse-client b.lightgreen
+        {
+            font-weight: bold;
+            color: #54ff54;
+        }
+        
+        pre#clickhouse-client b.lightblue
+        {
+            font-weight: bold;
+            color: #5454ff;
+        }
+        
+        pre#clickhouse-client b.darkcyan
+        {
+            font-weight: normal;
+            color: #18b2b2;
+        }
+        
+        pre#clickhouse-client b.darkyellow
+        {
+            font-weight: normal;
+            color: #b26818;
+        }
+        
+        pre#clickhouse-client b.darkgreen
+        {
+            font-weight: normal;
+            color: #18b218;
+        }
+        
+        pre#textarea
+        {
+            display: none;
+            height: 100%;
+            margin: 1rem 2.5rem;
+        }
+        
+        textarea:focus
+        {
+            outline: none !important;
+        }
+        
+        pre#textarea textarea
+        {
+            background-color: white;
+            color: black;
+            width: 100%;
+            height: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            border: 1px solid #EEE;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+        }
+        
+        pre#textarea.dark textarea
+        {
+            background-color: black;
+            color: white;
+        }
+        
+        pre#about, pre#description
+        {
+            display: none;
+            height: 100%;
+            margin: 1rem 2.5rem;
+            padding: 0.5em;
+            overflow-y: scroll;
+            white-space: pre-wrap;
+        }
+        
+        pre#about.dark
+        {
+            background-color: #002b36;
+            color: #CCC;
+        }
+        
+        a
+        {
+            color: #08F;
+            text-decoration: none;
+        }
+        
+        a:hover, a:active
+        {
+            color: #F80;
+            text-decoration: underline;
+        }
+        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&amp;family=B612+Mono:wght@400;700&amp;family=Courier+Prime:wght@400;700&amp;family=Cousine&amp;family=Cutive+Mono&amp;family=DM+Mono:wght@400;500&amp;family=Fira+Code:wght@300;400&amp;family=Fira+Mono:wght@400;500;700&amp;family=IBM+Plex+Mono&amp;family=Inconsolata:wght@300;400&amp;family=Nanum+Gothic+Coding:wght@400;700&amp;family=Nova+Mono&amp;family=Overpass+Mono:wght@300;400;700&amp;family=Oxygen+Mono&amp;family=PT+Mono&amp;family=Roboto+Mono&amp;family=Share+Tech+Mono&amp;family=Source+Code+Pro:wght@300;400&amp;family=Space+Mono:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap" rel="stylesheet"> 
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+
+<div>
+    <ul id="fonts_list">
+    </ul>
+    
+<div id="right-buttons"><span id="favorite">❤</span> <span id="trash">🗑</span></div>
+    
+    <ul id="sizes_list">
+        <li>7pt</li>
+        <li>8pt</li>
+        <li>9pt</li>
+        <li class="selected">10pt</li>
+        <li>11pt</li>
+        <li>12pt</li>
+        <li>13pt</li>
+        <li>14pt</li>
+        <li>15pt</li>
+        <li>16pt</li>
+        <li>17pt</li>
+        <li>18pt</li>
+        <li>19pt</li>
+        <li>20pt</li>
+    </ul>
+    
+    <ul id="examples_list">
+        <li class="selected" data-pre-id="code-kdevelop" data-set-class="">KDevelop</li>
+        <li data-pre-id="code-kdevelop" data-set-class="dark">KDevelop (dark)</li>
+        <li data-pre-id="clickhouse-client">Konsole clickhouse-client</li>
+        <li data-pre-id="textarea" data-set-class="">Textarea</li>
+        <li data-pre-id="textarea" data-set-class="dark">Textarea (dark)</li>
+        <li data-pre-id="about" data-set-class="">About</li>
+        <li data-pre-id="about" data-set-class="dark">About (dark)</li>
+<!--        <li id="selector-font-description" data-pre-id="description">Font Description</li>-->
+    </ul>
+</div>
+
+<pre id="about"><b>Monospace Font Selector</b>
+
+This website is created for the needs of <a href="https://github.com/ClickHouse/ClickHouse">ClickHouse</a> developers.
+In fact it's created because I had some curiosity about monospace fonts.
+
+It allows to quickly check how fonts will look without installation, directly from web browser.
+Fonts may take significant time to load.
+
+Source code: ...
+If you will find the information on this website inaccurate,
+or if you want to extend this website, please make pull requests.
+
+
+<b>Font Rendering</b>
+
+How fonts will look depends on multiple factors:
+
+
+1. Monitor.
+
+In low-DPI monitors you may see how individual pixels are laid out, how well text is aligned in pixel grid.
+To improve quality of font rendering, anti-aliasing and hinting may be required.
+(It is not needed in CRT monitors that you are unlikely to use).
+
+Anti-aliasing can be "grayscale" and "subpixel". 
+Subpixel antialiasing will produce more sharp text with slightly noticeable distortion of colors.
+It's a matter of habit, what type of antialiasing would you prefer.
+
+Hinting is used to perfectly align lines of symbols to pixel grid.
+Text will appear much more sharp if hinting is used, but kerning and letter shape may be slightly worse.
+Hinting is not needed if you use large font size.
+
+There is a statement that subpixel antialiasing and hinting is not required on high-DPI ("retina") displays.
+But it depends on actual DPI.
+
+For example, 13" laptop with 1920x1080 resolution have medium DPI and you may find perfectly hinted font better.
+30" monitor with 2560x1600 resolution have lower DPI and if you prefer crisp looking fonts, you will definitely need hinting.
+32" 4K monitor with 3840x2160 have DPI just slightly more than previous example and font rendering may still benefit for hinting.
+
+There are also bitmap (old-school) fonts that does not require any antialiasing or hinting
+(they are already perfectly laid out in pixels). But they can work only in certain sizes.
+On retina monitors their usage is mostly impractical. 
+They will not display correctly on MacBook because it is using non-integer scaling factor for pixels.
+
+
+2. Operating system.
+
+Different OS implement different mechanisms for font rendering.
+
+Mac OS X does not use subpixel antialiasing nor hinting. 
+Text will appear slightly blurred on non-"retina" displays and just fine on "retina" displays.
+
+Windows is using "ClearType" rendering method that supports both subpixel antialiasing and hinting.
+
+Linux is using FreeType library that has support for subpixel antialiasing and hinting
+but this support is broken in various Linux distributions in numerous different ways.
+Default settings in Linux may give unsatisfactory results.
+
+
+3. The settings of operating system.
+
+For example, on fresh installation of kUbuntu, only grayscale antialiasing is enabled (similar to Mac OS X)
+and subpixel antialiasing and hinting are not enabled.
+
+You can enable subpixel antialiasing in system settings that will take effect after restart.
+But hinting is totally broken. To enable hinting, put this line to /etc/environment:
+
+FREETYPE_PROPERTIES="truetype:interpreter-version=35 cff:no-stem-darkening=1 autofitter:warping=1"
+
+and restart the system. On some versions, recompilation of FreeType from sources may be necessarily.
+More information: https://wiki.archlinux.org/index.php/Font_configuration
+https://mrandri19.github.io/2019/07/24/modern-text-rendering-linux-overview.html
+
+Windows allows installation of alternative font rendering libraries instead of ClearType.
+
+
+4. Application and how the application was packaged.
+
+Some applications don't support subpixel antialiasing and/or hinting even if it is enabled in the OS.
+For example, Konsole terminal works perfectly but Kitty does not:
+https://github.com/kovidgoyal/kitty/issues/214
+
+Font rendering may differ in your IDE, in terminal and in web browser.
+For example, Firefox does support hinting but Chromium does not if it is installed from "snap" package.
+Firefox supports bitmap fonts perfectly but Chromium does not.
+
+The font size may depend on application.
+For example, <b>Liberation Mono</b> 9pt is rendered in web browser one pt smaller than the same font in KDevelop.
+Sometimes the size is different in Firefox and Chromium even with the same settings.
+
+KDevelop supports subpixel AA and hinting if it was installed from apt.
+But does not if you run it from AppImage.
+
+Telegram Desktop supports subpixel AA and hinting if it was installed from apt.
+But does not if you install it from official website.
+
+Java applications (JetBrains products like CLion, IDEA, DataGrip) does not support hinting.
+But there are rumors that support can be enabled if you recompile JVM.
+
+Terminal applications may require box drawing characters in font to render UI.
+But not always. For example, Konsole will render box drawing characters by itself (by default)
+and it will work perfectly even if your font does not have box drawing characters.
+But if you copy-paste terminal output to some website, it may break.
+
+
+5. How the font was packaged.
+
+Some websites (like Google Fonts) may provide web-optimized, incomplete versions of fonts.
+For example, if you use <b>Fira Code</b> font from Google Fonts, it will not render console UI correctly
+despite the fact that full version of this font has all required characters.
+
+Needless to say that hinting information can be lost in repackaged versions of fonts.
+
+Bitmap fonts cannot be embedded/downloaded for the web page with CSS but they can be used if present in OS.
+Only in Firefox, not in Chromium.
+If you want to use bitmap fonts on web page without installation, they have to be converted to vector versions.
+It can be done in numerous ways but most of them will give terrible results.
+
+So, chances are low that you will see perfect look of <b>Terminus</b> font in your web browser.
+It will not work on Mac OS X. It will not work in Chromium.
+
+We deliberately removed all bitmap fonts for automatic download via CSS because they cannot display correctly.
+To look at bitmap fonts, do
+
+sudo apt install xfonts-terminus
+sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
+sudo ln -s /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d/70-yes-bitmaps.conf
+sudo rm /etc/fonts/conf.d/10-scale-bitmap-fonts.conf
+
+
+<b>How to use this website</b>
+
+You can see the font selector on top. Click on the font you want to look.
+There are different categories of fonts.
+
+Most of the fonts have license allowing to freely use/redistribute them on the web.
+They are instantly available for selection.
+
+Some fonts are free to use but cannot be redistributed. Examples: <b>Input Mono</b>, <b>Envy Code R</b>.
+They can be selected only if you have installed them in your OS.
+It is easy. Step 1: go to the official website of the font. Step 2: download the font.
+Step 3: if you are using Linux, open "Font Management", then open the font from filesystem, install it.
+Step 4: if you are using Firefox, reload the page; if you are using Chromium, restart the web browser.
+
+Some fonts comes with your operating system and cannot be redistributed.
+Examples for Mac OS X: <b>Monaco</b>, <b>Menlo</b>, <b>SF-Mono</b>.
+Examples for Windows: <b>Lucida Console</b>, <b>Consolas</b>.
+These fonts can be selected only if available in your OS.
+
+Some fonts are non-free and purchased separately. 
+Examples: <b>Cartograph</b> (trial download available), <b>Pragmata Pro</b>, <b>MonoLisa</b>.
+These fonts are not included on the website.
+
+Selectors for fonts that cannot be downloaded automatically and not available in your OS will be disabled (gray).
+
+Different fonts are of different completeness/maturity.
+We check that font has support for cyrillic letters (а-я) and box drawing characters.
+If it does not, the selector will be in 50% opacity. The check is not precise.
+
+The information about fonts availability is updated each second, because some fonts may take time to load.
+
+Some fonts may have multiple variants. For example, <b>Fira</b> and <b>JetBrains</b> may have ligatures enabled or disabled.
+Another example, <b>Iosevka</b> allows to choose different stylistic variations for many letters to accomodate everyone's taste.
+Unfortunately, we list only one variation for most of the fonts.
+
+Another example is cursive italic variant with handwritten style in <b>Victor Mono</b> and <b>Cartograph</b>.
+It will look cool and hip when you share screenshots in social networks!
+Unfortunately, default style of all programs that I use for code or as a terminal does not use italics.
+And this website does not provide relevant examples.
+
+Below you will find font size selector and examples selector.
+
+The sizes are selected in points (pt). This is done to better match with the size selection in other applications.
+But for different fonts, the same pt may correspond to different size.
+Note that bitmap fonts are available not in every size.
+They will either look terrible if size selection does not match or not render at all.
+
+Right to these selectors you will find "add to favorite" (❤) and "trash" (🗑) buttons.
+Add to favorite will move current font to the front of the list, so you can compare your favorite fonts more quickly.
+Trash button will delete current font from the list, so you can quickly choose from the remaining fonts.
+If you changed your mind and want to return some deleted font, reload the page by pressing F5 or Ctrl+R.
+
+KDevelop example is partially based on the output of Woboq Code Browser.
+The source file example is from https://github.com/ClickHouse/ClickHouse/blob/master/src/Common/Volnitsky.h
+
+Konsole example is based on output of <b>clickhouse-client</b> on test dataset available here:
+https://clickhouse.tech/docs/en/getting-started/example-datasets/metrica/
+
+
+<b>What fonts are the best?</b>
+
+There are so many differencies in fonts rendering and perception that makes answering this question impossible.
+I refuse even trying to answer this question.
+
+After creating this website I have found that I'm not ready to change the font that I have used before.
+It means that creation of this website did not met the goal.
+
+But I hope that this website will allow you to find a font that at least does not look like a trash.
+
+
+<b>Similar Projects</b>
+
+1. <a href="https://www.programmingfonts.org/">https://www.programmingfonts.org/</a>
+
+Upsides:
+- Provides comprehensive list of fonts with info about each of them.
+- Allows to test-drive interactively in web browser.
+
+Downsides:
+- All bitmap fonts on this website cannot display correctly and will provide misleading look.
+- Some fonts on this website were not packaged correctly and has no hinting info. This will also give you misleading look.
+- It is very difficult to select "light" theme instead of "dark" for examples.
+
+2. <a href="http://www.s9w.io/font_compare/">http://www.s9w.io/font_compare/</a>
+This website provides the look of fonts rendering in Windows with screenshots.
+
+3. <a href="https://github.com/chrissimpkins/codeface">https://github.com/chrissimpkins/codeface</a>
+Provides comprehensive list of fonts in form of TTF files and screenshots.
+The list of fonts on my website is partially derived from this project.
+</pre>
+
+<!--
+<b>What font do you use?</b>
+
+I use NEC 30" 2560x1600 monitor, the distance is about 60 cm.
+
+OS is kUbuntu, RGB subpixel rendering is enabled, hinting is set to "full".
+FreeType settings was tuned to make hinting work.
+
+KDevelop for C++ IDE. Kate for text editor. Firefox for web browser. Konsole for terminal emulator.
+I use light (default) theme everywhere except Konsole where theme is dark (also default).
+
+For KDevelop and Kate, the font is <b>Liberation Mono 9</b>, for Konsole it's <b>DejaVu Sans Mono 9</b>
+(you should choose 10pt on this website to get similar look).
+-->
+
+<pre id="code-kdevelop">
+<samp><u>#pragma once</u></samp>
+<samp></samp>
+<samp><u>#include <a>&lt;algorithm&gt;</a></u></samp>
+<samp><u>#include <a>&lt;vector&gt;</a></u></samp>
+<samp><u>#include <a>&lt;stdint.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;string.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;Core/Types.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;Poco/Unicode.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;Common/StringSearcher.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;Common/StringUtils/StringUtils.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;Common/UTF8Helpers.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;common/StringRef.h&gt;</a></u></samp>
+<samp><u>#include <a>&lt;common/unaligned.h&gt;</a></u></samp>
+<samp></samp>
+<samp><i class="doc">/** Search for a substring in a string by Volnitsky's algorithm</i></samp>
+<samp><i class="doc">  * http://volnitsky.com/project/str_search/</i></samp>
+<samp><i class="doc">  *</i></samp>
+<samp><i class="doc">  * `haystack` and `needle` can contain zero bytes.</i></samp>
+<samp><i class="doc">  *</i></samp>
+<samp><i class="doc">  * Algorithm:</i></samp>
+<samp><i class="doc">  * - if the `needle` is too small or too large, or too small `haystack`, use std::search or memchr;</i></samp>
+<samp><i class="doc">  * - when initializing, fill in an open-addressing linear probing hash table of the form</i></samp>
+<samp><i class="doc">  *    hash from the bigram of needle -&gt; the position of this bigram in needle + 1.</i></samp>
+<samp><i class="doc">  *    (one is added only to distinguish zero offset from an empty cell)</i></samp>
+<samp><i class="doc">  * - the keys are not stored in the hash table, only the values are stored;</i></samp>
+<samp><i class="doc">  * - bigrams can be inserted several times if they occur in the needle several times;</i></samp>
+<samp><i class="doc">  * - when searching, take from haystack bigram, which should correspond to the last bigram of needle (comparing from the end);</i></samp>
+<samp><i class="doc">  * - look for it in the hash table, if found - get the offset from the hash table and compare the string bytewise;</i></samp>
+<samp><i class="doc">  * - if it did not match, we check the next cell of the hash table from the collision resolution chain;</i></samp>
+<samp><i class="doc">  * - if not found, skip to haystack almost the size of the needle bytes;</i></samp>
+<samp><i class="doc">  *</i></samp>
+<samp><i class="doc">  * MultiVolnitsky - search for multiple substrings in a string:</i></samp>
+<samp><i class="doc">  * - Add bigrams to hash table with string index. Then the usual Volnitsky search is used.</i></samp>
+<samp><i class="doc">  * - We are adding while searching, limiting the number of fallback searchers and the total number of added bigrams</i></samp>
+<samp><i class="doc">  */</i></samp>
+<samp></samp>
+<samp></samp>
+<samp><b>namespace</b> <span class="namespace">DB</span></samp>
+<samp>{</samp>
+<samp><b>namespace</b> <span class="namespace">VolnitskyTraits</span></samp>
+<samp>{</samp>
+<samp>    <b>using</b> <dfn class="typedef">Offset</dfn> = <a class="typedef">UInt8</a>; <i class="doc">/// Offset in the needle. For the basic algorithm, the length of the needle must not be greater than 255.</i></samp>
+<samp>    <b>using</b> <dfn class="typedef">Id</dfn> = <a class="typedef">UInt8</a>; <i class="doc">/// Index of the string (within the array of multiple needles), must not be greater than 255.</i></samp>
+<samp>    <b>using</b> <dfn class="typedef">Ngram</dfn> = <a class="typedef">UInt16</a>; <i class="doc">/// n-gram (2 bytes).</i></samp>
+<samp></samp>
+<samp>    <i class="doc">/** Fits into the L2 cache (of common Intel CPUs).</i></samp>
+<samp><i class="doc">     * This number is extremely good for compilers as it is numeric_limits&lt;Uint16&gt;::max() and there are optimizations with movzwl and other instructions with 2 bytes</i></samp>
+<samp><i class="doc">     */</i></samp>
+<samp>    <em>static</em> <b>constexpr</b> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl def">hash_size</dfn> = <var>64</var> * <var>1024</var>;</samp>
+<samp></samp>
+<samp>    <i class="doc">/// min haystack size to use main algorithm instead of fallback</i></samp>
+<samp>    <em>static</em> <b>constexpr</b> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl def">min_haystack_size_for_algorithm</dfn> = <var>20000</var>;</samp>
+<samp></samp>
+<samp>    <em>static</em> <b>inline</b> <em>bool</em> <dfn class="decl def fn">isFallbackNeedle</dfn>(<em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col5 decl">needle_size</dfn>, <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col6 decl">haystack_size_hint</dfn> = <var>0</var>)</samp>
+<samp>    {</samp>
+<samp>        <b>return</b> <a class="local col5 ref">needle_size</a> &lt; <var>2</var> * <b>sizeof</b>(<a class="typedef">Ngram</a>) || <a class="local col5 ref">needle_size</a> &gt;= <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<a class="typedef">Offset</a>&gt;::<a class="ref fn">max</a>()</samp>
+<samp>            || (<a class="local col6 ref">haystack_size_hint</a> &amp;&amp; <a class="local col6 ref">haystack_size_hint</a> &lt; <a class="ref">min_haystack_size_for_algorithm</a>);</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <em>static</em> <b>inline</b> <a class="typedef">Ngram</a> <dfn class="decl def fn">toNGram</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="local col7 decl">pos</dfn>) { <b>return</b> <a class="ref fn">unalignedLoad</a>&lt;<a class="typedef">Ngram</a>&gt;(<a class="local col7 ref">pos</a>); }</samp>
+<samp></samp>
+<samp>    <b>template</b> &lt;<b>typename</b> Callback&gt;</samp>
+<samp>    <em>static</em> <b>inline</b> <em>void</em> <dfn class="decl def fn">putNGramASCIICaseInsensitive</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="local col8 decl">pos</dfn>, <em>const</em> <em>int</em> <dfn class="local col9 decl">offset</dfn>, <em>const</em> Callback &amp; <dfn class="local col0 decl">putNGramBase</dfn>)</samp>
+<samp>    {</samp>
+<samp>        <b>struct</b> <dfn class="local col1 type">Chars</dfn></samp>
+<samp>        {</samp>
+<samp>            <a class="typedef">UInt8</a> <dfn class="local col2 decl field">c0</dfn>;</samp>
+<samp>            <a class="typedef">UInt8</a> <dfn class="local col3 decl field">c1</dfn>;</samp>
+<samp>        };</samp>
+<samp></samp>
+<samp>        <b>union</b></samp>
+<samp>        {</samp>
+<samp>            <a class="typedef">Ngram</a> <dfn class="local col4 decl field">n</dfn>;</samp>
+<samp>            <a class="local col1 type">Chars</a> <dfn class="local col5 decl field">chars</dfn>;</samp>
+<samp>        };</samp>
+<samp></samp>
+<samp>        <a class="local col4 ref field">n</a> = <a class="ref fn">toNGram</a>(<a class="local col8 ref">pos</a>);</samp>
+<samp></samp>
+<samp>        <em>const</em> <em>auto</em> <dfn class="local col6 decl">c0_al</dfn> = isAlphaASCII(<a class="local col5 ref field">chars</a>.c0);</samp>
+<samp>        <em>const</em> <em>auto</em> <dfn class="local col7 decl">c1_al</dfn> = isAlphaASCII(<a class="local col5 ref field">chars</a>.c1);</samp>
+<samp></samp>
+<samp>        <b>if</b> (<a class="local col6 ref">c0_al</a> &amp;&amp; <a class="local col7 ref">c1_al</a>)</samp>
+<samp>        {</samp>
+<samp>            <i class="doc">/// 4 combinations: AB, aB, Ab, ab</i></samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>            <a class="local col5 ref field">chars</a>.c0 = alternateCaseIfAlphaASCII(<a class="local col5 ref field">chars</a>.c0);</samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>            <a class="local col5 ref field">chars</a>.c1 = alternateCaseIfAlphaASCII(<a class="local col5 ref field">chars</a>.c1);</samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>            <a class="local col5 ref field">chars</a>.c0 = alternateCaseIfAlphaASCII(<a class="local col5 ref field">chars</a>.c0);</samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>        }</samp>
+<samp>        <b>else</b> <b>if</b> (<a class="local col6 ref">c0_al</a>)</samp>
+<samp>        {</samp>
+<samp>            <i class="doc">/// 2 combinations: A1, a1</i></samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>            <a class="local col5 ref field">chars</a>.c0 = alternateCaseIfAlphaASCII(<a class="local col5 ref field">chars</a>.c0);</samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>        }</samp>
+<samp>        <b>else</b> <b>if</b> (<a class="local col7 ref">c1_al</a>)</samp>
+<samp>        {</samp>
+<samp>            <i class="doc">/// 2 combinations: 0B, 0b</i></samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>            <a class="local col5 ref field">chars</a>.c1 = alternateCaseIfAlphaASCII(<a class="local col5 ref field">chars</a>.c1);</samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>        }</samp>
+<samp>        <b>else</b></samp>
+<samp>            <i class="doc">/// 1 combination: 01</i></samp>
+<samp>            <a class="local col0 ref">putNGramBase</a>(<a class="local col4 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <b>template</b> &lt;<em>bool</em> CaseSensitive, <em>bool</em> ASCII, <b>typename</b> Callback&gt;</samp>
+<samp>    <em>static</em> <b>inline</b> <em>void</em> <dfn class="decl def fn">putNGram</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="local col8 decl">pos</dfn>, <em>const</em> <em>int</em> <dfn class="local col9 decl">offset</dfn>, [[maybe_unused]] <em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="local col0 decl">begin</dfn>, <em>const</em> Callback &amp; <dfn class="local col1 decl">putNGramBase</dfn>)</samp>
+<samp>    {</samp>
+<samp>        <b>if</b> <b>constexpr</b> (<a class="tu ref">CaseSensitive</a>)</samp>
+<samp>        {</samp>
+<samp>            <a class="local col1 ref">putNGramBase</a>(<a class="ref fn">toNGram</a>(<a class="local col8 ref">pos</a>), <a class="local col9 ref">offset</a>);</samp>
+<samp>        }</samp>
+<samp>        <b>else</b></samp>
+<samp>        {</samp>
+<samp>            <b>if</b> <b>constexpr</b> (<a class="tu ref">ASCII</a>)</samp>
+<samp>            {</samp>
+<samp>                putNGramASCIICaseInsensitive(<a class="local col8 ref">pos</a>, <a class="local col9 ref">offset</a>, <a class="local col1 ref">putNGramBase</a>);</samp>
+<samp>            }</samp>
+<samp>            <b>else</b></samp>
+<samp>            {</samp>
+<samp>                <b>struct</b> <dfn class="local col2 type">Chars</dfn></samp>
+<samp>                {</samp>
+<samp>                    <a class="typedef">UInt8</a> <dfn class="local col3 decl field">c0</dfn>;</samp>
+<samp>                    <a class="typedef">UInt8</a> <dfn class="local col4 decl field">c1</dfn>;</samp>
+<samp>                };</samp>
+<samp></samp>
+<samp>                <b>union</b></samp>
+<samp>                {</samp>
+<samp>                    <span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a> <dfn class="local col5 decl field">n</dfn>;</samp>
+<samp>                    <a class="local col2 type">Chars</a> <dfn class="local col6 decl field">chars</dfn>;</samp>
+<samp>                };</samp>
+<samp></samp>
+<samp>                <a class="local col5 ref field">n</a> = <a class="ref fn">toNGram</a>(<a class="local col8 ref">pos</a>);</samp>
+<samp></samp>
+<samp>                <b>if</b> (<a class="macro">isascii</a>(<a class="local col6 ref field">chars</a>.c0) &amp;&amp; <a class="macro">isascii</a>(<a class="local col6 ref field">chars</a>.c1))</samp>
+<samp>                    putNGramASCIICaseInsensitive(<a class="local col8 ref">pos</a>, <a class="local col9 ref">offset</a>, <a class="local col1 ref">putNGramBase</a>);</samp>
+<samp>                <b>else</b></samp>
+<samp>                {</samp>
+<samp>                    <i class="doc">/** n-gram (in the case of n = 2)</i></samp>
+<samp><i class="doc">                      *  can be entirely located within one code point,</i></samp>
+<samp><i class="doc">                      *  or intersect with two code points.</i></samp>
+<samp><i class="doc">                      *</i></samp>
+<samp><i class="doc">                      * In the first case, you need to consider up to two alternatives - this code point in upper and lower case,</i></samp>
+<samp><i class="doc">                      *  and in the second case - up to four alternatives - fragments of two code points in all combinations of cases.</i></samp>
+<samp><i class="doc">                      *</i></samp>
+<samp><i class="doc">                      * It does not take into account the dependence of the case-transformation from the locale (for example - Turkish `Ii`)</i></samp>
+<samp><i class="doc">                      *  as well as composition / decomposition and other features.</i></samp>
+<samp><i class="doc">                      *</i></samp>
+<samp><i class="doc">                      * It also does not work if characters with lower and upper cases are represented by different number of bytes or code points.</i></samp>
+<samp><i class="doc">                      */</i></samp>
+<samp></samp>
+<samp>                    <b>using</b> <dfn class="local col7 typedef">Seq</dfn> = <a class="typedef">UInt8</a>[<var>6</var>];</samp>
+<samp></samp>
+<samp>                    <b>if</b> (<span class="namespace">UTF8::</span><a class="ref fn">isContinuationOctet</a>(<a class="local col6 ref field">chars</a>.c1))</samp>
+<samp>                    {</samp>
+<samp>                        <i class="doc">/// ngram is inside a sequence</i></samp>
+<samp>                        <em>auto</em> <dfn class="local col8 decl">seq_pos</dfn> = <a class="local col8 ref">pos</a>;</samp>
+<samp>                        <span class="namespace">UTF8::</span><a class="ref fn">syncBackward</a>(<span class='refarg'><a class="local col8 ref">seq_pos</a></span>, <a class="local col0 ref">begin</a>);</samp>
+<samp></samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col9 decl">u32</dfn> = <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col8 ref">seq_pos</a>);</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col0 decl">l_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toLower</a>(<a class="local col9 ref">u32</a>);</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col1 decl">u_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toUpper</a>(<a class="local col9 ref">u32</a>);</samp>
+<samp></samp>
+<samp>                        <i class="doc">/// symbol is case-independent</i></samp>
+<samp>                        <b>if</b> (<a class="local col0 ref">l_u32</a> == <a class="local col1 ref">u_u32</a>)</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                        <b>else</b></samp>
+<samp>                        {</samp>
+<samp>                            <i class="doc">/// where is the given ngram in respect to the start of UTF-8 sequence?</i></samp>
+<samp>                            <em>const</em> <em>auto</em> <dfn class="local col2 decl">seq_ngram_offset</dfn> = <a class="local col8 ref">pos</a> - <a class="local col8 ref">seq_pos</a>;</samp>
+<samp></samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col3 decl">seq</dfn>;</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram for lowercase</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col0 ref">l_u32</a>, <a class="local col3 ref">seq</a>, <b>sizeof</b>(<a class="local col3 ref">seq</a>));</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c0 = <a class="local col3 ref">seq</a>[<a class="local col2 ref">seq_ngram_offset</a>];</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c1 = <a class="local col3 ref">seq</a>[<a class="local col2 ref">seq_ngram_offset</a> + <var>1</var>];</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram for uppercase</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col1 ref">u_u32</a>, <a class="local col3 ref">seq</a>, <b>sizeof</b>(<a class="local col3 ref">seq</a>));</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c0 = <a class="local col3 ref">seq</a>[<a class="local col2 ref">seq_ngram_offset</a>]; <i>//-V519</i></samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c1 = <a class="local col3 ref">seq</a>[<a class="local col2 ref">seq_ngram_offset</a> + <var>1</var>]; <i>//-V519</i></samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                        }</samp>
+<samp>                    }</samp>
+<samp>                    <b>else</b></samp>
+<samp>                    {</samp>
+<samp>                        <i class="doc">/// ngram is on the boundary of two sequences</i></samp>
+<samp><i class="doc">                        /// first sequence may start before u_pos if it is not ASCII</i></samp>
+<samp>                        <em>auto</em> <dfn class="local col4 decl">first_seq_pos</dfn> = <a class="local col8 ref">pos</a>;</samp>
+<samp>                        <span class="namespace">UTF8::</span><a class="ref fn">syncBackward</a>(<span class='refarg'><a class="local col4 ref">first_seq_pos</a></span>, <a class="local col0 ref">begin</a>);</samp>
+<samp>                        <i class="doc">/// where is the given ngram in respect to the start of first UTF-8 sequence?</i></samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col5 decl">seq_ngram_offset</dfn> = <a class="local col8 ref">pos</a> - <a class="local col4 ref">first_seq_pos</a>;</samp>
+<samp></samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col6 decl">first_u32</dfn> = <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col4 ref">first_seq_pos</a>);</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col7 decl">first_l_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toLower</a>(<a class="local col6 ref">first_u32</a>);</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col8 decl">first_u_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toUpper</a>(<a class="local col6 ref">first_u32</a>);</samp>
+<samp></samp>
+<samp>                        <i class="doc">/// second sequence always start immediately after u_pos</i></samp>
+<samp>                        <em>auto</em> <dfn class="local col9 decl">second_seq_pos</dfn> = <a class="local col8 ref">pos</a> + <var>1</var>;</samp>
+<samp></samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col0 decl">second_u32</dfn> = <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col9 ref">second_seq_pos</a>); <i class="doc">/// TODO This assumes valid UTF-8 or zero byte after needle.</i></samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col1 decl">second_l_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toLower</a>(<a class="local col0 ref">second_u32</a>);</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col2 decl">second_u_u32</dfn> = <span class="namespace">Poco::</span><a class="type">Unicode</a>::<a class="ref fn">toUpper</a>(<a class="local col0 ref">second_u32</a>);</samp>
+<samp></samp>
+<samp>                        <i class="doc">/// both symbols are case-independent</i></samp>
+<samp>                        <b>if</b> (<a class="local col7 ref">first_l_u32</a> == <a class="local col8 ref">first_u_u32</a> &amp;&amp; <a class="local col1 ref">second_l_u32</a> == <a class="local col2 ref">second_u_u32</a>)</samp>
+<samp>                        {</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                        }</samp>
+<samp>                        <b>else</b> <b>if</b> (<a class="local col7 ref">first_l_u32</a> == <a class="local col8 ref">first_u_u32</a>)</samp>
+<samp>                        {</samp>
+<samp>                            <i class="doc">/// first symbol is case-independent</i></samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col3 decl">seq</dfn>;</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram for lowercase</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col1 ref">second_l_u32</a>, <a class="local col3 ref">seq</a>, <b>sizeof</b>(<a class="local col3 ref">seq</a>));</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c1 = <a class="local col3 ref">seq</a>[<var>0</var>];</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram from uppercase, if it is different</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col2 ref">second_u_u32</a>, <a class="local col3 ref">seq</a>, <b>sizeof</b>(<a class="local col3 ref">seq</a>));</samp>
+<samp>                            <b>if</b> (<a class="local col6 ref field">chars</a>.c1 != <a class="local col3 ref">seq</a>[<var>0</var>])</samp>
+<samp>                            {</samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c1 = <a class="local col3 ref">seq</a>[<var>0</var>];</samp>
+<samp>                                <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                            }</samp>
+<samp>                        }</samp>
+<samp>                        <b>else</b> <b>if</b> (<a class="local col1 ref">second_l_u32</a> == <a class="local col2 ref">second_u_u32</a>)</samp>
+<samp>                        {</samp>
+<samp>                            <i class="doc">/// second symbol is case-independent</i></samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col4 decl">seq</dfn>;</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram for lowercase</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col7 ref">first_l_u32</a>, <a class="local col4 ref">seq</a>, <b>sizeof</b>(<a class="local col4 ref">seq</a>));</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c0 = <a class="local col4 ref">seq</a>[<a class="local col5 ref">seq_ngram_offset</a>];</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// put ngram for uppercase, if it is different</i></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col8 ref">first_u_u32</a>, <a class="local col4 ref">seq</a>, <b>sizeof</b>(<a class="local col4 ref">seq</a>));</samp>
+<samp>                            <b>if</b> (<a class="local col6 ref field">chars</a>.c0 != <a class="local col4 ref">seq</a>[<a class="local col5 ref">seq_ngram_offset</a>])</samp>
+<samp>                            {</samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c0 = <a class="local col4 ref">seq</a>[<a class="local col5 ref">seq_ngram_offset</a>];</samp>
+<samp>                                <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                            }</samp>
+<samp>                        }</samp>
+<samp>                        <b>else</b></samp>
+<samp>                        {</samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col5 decl">first_l_seq</dfn>;</samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col6 decl">first_u_seq</dfn>;</samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col7 decl">second_l_seq</dfn>;</samp>
+<samp>                            <a class="local col7 typedef">Seq</a> <dfn class="local col8 decl">second_u_seq</dfn>;</samp>
+<samp></samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col7 ref">first_l_u32</a>, <a class="local col5 ref">first_l_seq</a>, <b>sizeof</b>(<a class="local col5 ref">first_l_seq</a>));</samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col8 ref">first_u_u32</a>, <a class="local col6 ref">first_u_seq</a>, <b>sizeof</b>(<a class="local col6 ref">first_u_seq</a>));</samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col1 ref">second_l_u32</a>, <a class="local col7 ref">second_l_seq</a>, <b>sizeof</b>(<a class="local col7 ref">second_l_seq</a>));</samp>
+<samp>                            <span class="namespace">UTF8::</span><a class="ref fn">convert</a>(<a class="local col2 ref">second_u_u32</a>, <a class="local col8 ref">second_u_seq</a>, <b>sizeof</b>(<a class="local col8 ref">second_u_seq</a>));</samp>
+<samp></samp>
+<samp>                            <em>auto</em> <dfn class="local col9 decl">c0l</dfn> = <a class="local col5 ref">first_l_seq</a>[<a class="local col5 ref">seq_ngram_offset</a>];</samp>
+<samp>                            <em>auto</em> <dfn class="local col0 decl">c0u</dfn> = <a class="local col6 ref">first_u_seq</a>[<a class="local col5 ref">seq_ngram_offset</a>];</samp>
+<samp>                            <em>auto</em> <dfn class="local col1 decl">c1l</dfn> = <a class="local col7 ref">second_l_seq</a>[<var>0</var>];</samp>
+<samp>                            <em>auto</em> <dfn class="local col2 decl">c1u</dfn> = <a class="local col8 ref">second_u_seq</a>[<var>0</var>];</samp>
+<samp></samp>
+<samp>                            <i class="doc">/// ngram for ll</i></samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c0 = <a class="local col9 ref">c0l</a>;</samp>
+<samp>                            <a class="local col6 ref field">chars</a>.c1 = <a class="local col1 ref">c1l</a>;</samp>
+<samp>                            <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp></samp>
+<samp>                            <b>if</b> (<a class="local col9 ref">c0l</a> != <a class="local col0 ref">c0u</a>)</samp>
+<samp>                            {</samp>
+<samp>                                <i class="doc">/// ngram for Ul</i></samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c0 = <a class="local col0 ref">c0u</a>;</samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c1 = <a class="local col1 ref">c1l</a>;</samp>
+<samp>                                <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                            }</samp>
+<samp></samp>
+<samp>                            <b>if</b> (<a class="local col1 ref">c1l</a> != <a class="local col2 ref">c1u</a>)</samp>
+<samp>                            {</samp>
+<samp>                                <i class="doc">/// ngram for lU</i></samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c0 = <a class="local col9 ref">c0l</a>;</samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c1 = <a class="local col2 ref">c1u</a>;</samp>
+<samp>                                <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                            }</samp>
+<samp></samp>
+<samp>                            <b>if</b> (<a class="local col9 ref">c0l</a> != <a class="local col0 ref">c0u</a> &amp;&amp; <a class="local col1 ref">c1l</a> != <a class="local col2 ref">c1u</a>)</samp>
+<samp>                            {</samp>
+<samp>                                <i class="doc">/// ngram for UU</i></samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c0 = <a class="local col0 ref">c0u</a>;</samp>
+<samp>                                <a class="local col6 ref field">chars</a>.c1 = <a class="local col2 ref">c1u</a>;</samp>
+<samp>                                <a class="local col1 ref">putNGramBase</a>(<a class="local col5 ref field">n</a>, <a class="local col9 ref">offset</a>);</samp>
+<samp>                            }</samp>
+<samp>                        }</samp>
+<samp>                    }</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp>    }</samp>
+<samp>}</samp>
+<samp></samp>
+<samp></samp>
+<samp><i class="doc">/// <span class="command">@todo</span> store lowercase needle to speed up in case there are numerous occurrences of bigrams from needle in haystack</i></samp>
+<samp><b>template</b> &lt;<em>bool</em> CaseSensitive, <em>bool</em> ASCII, <b>typename</b> FallbackSearcher&gt;</samp>
+<samp><b>class</b> <dfn class="type def">VolnitskyBase</dfn></samp>
+<samp>{</samp>
+<samp><b>protected</b>:</samp>
+<samp>    <em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="decl field">needle</dfn>;</samp>
+<samp>    <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl field">needle_size</dfn>;</samp>
+<samp>    <em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="decl field">needle_end</dfn> = <a class="ref field">needle</a> + <a class="ref field">needle_size</a>;</samp>
+<samp>    <i class="doc">/// For how long we move, if the n-gram from haystack is not found in the hash table.</i></samp>
+<samp>    <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl field">step</dfn> = <a class="ref field">needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>) + <var>1</var>;</samp>
+<samp></samp>
+<samp>    <i class="doc">/** max needle length is 255, max distinct ngrams for case-sensitive is (255 - 1), case-insensitive is 4 * (255 - 1)</i></samp>
+<samp><i class="doc">      *  storage of 64K ngrams (n = 2, 128 KB) should be large enough for both cases */</i></samp>
+<samp>    <span class="namespace">VolnitskyTraits::</span><a class="typedef">Offset</a> <dfn class="decl field">hash</dfn>[<span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>]; <i class="doc">/// Hash table.</i></samp>
+<samp></samp>
+<samp>    <em>const</em> <em>bool</em> <dfn class="decl field">fallback</dfn>; <i class="doc">/// Do we need to use the fallback algorithm.</i></samp>
+<samp></samp>
+<samp>    FallbackSearcher <dfn class="decl field">fallback_searcher</dfn>;</samp>
+<samp></samp>
+<samp><b>public</b>:</samp>
+<samp>    <b>using</b> <dfn class="typedef">Searcher</dfn> = FallbackSearcher;</samp>
+<samp></samp>
+<samp>    <i class="doc">/** haystack_size_hint - the expected total size of the haystack for `search` calls. Optional (zero means unspecified).</i></samp>
+<samp><i class="doc">      * If you specify it small enough, the fallback algorithm will be used,</i></samp>
+<samp><i class="doc">      *  since it is considered that it's useless to waste time initializing the hash table.</i></samp>
+<samp><i class="doc">      */</i></samp>
+<samp>    <dfn class="decl def fn">VolnitskyBase</dfn>(<em>const</em> <em>char</em> * <em>const</em> <dfn class="local col3 decl">needle_</dfn>, <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col4 decl">needle_size_</dfn>, <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col5 decl">haystack_size_hint</dfn> = <var>0</var>)</samp>
+<samp>        : <a class="member field">needle</a>{<b>reinterpret_cast</b>&lt;<em>const</em> <a class="typedef">UInt8</a> *&gt;(<a class="local col3 ref">needle_</a>)}</samp>
+<samp>        , <a class="member field">needle_size</a>{<a class="local col4 ref">needle_size_</a>}</samp>
+<samp>        , <a class="member field">fallback</a>{<span class="namespace">VolnitskyTraits::</span><a class="ref fn">isFallbackNeedle</a>(<a class="member field">needle_size</a>, <a class="local col5 ref">haystack_size_hint</a>)}</samp>
+<samp>        , <a class="member field">fallback_searcher</a>{<a class="local col3 ref">needle_</a>, <a class="member field">needle_size</a>}</samp>
+<samp>    {</samp>
+<samp>        <b>if</b> (<a class="member field">fallback</a>)</samp>
+<samp>            <b>return</b>;</samp>
+<samp></samp>
+<samp>        memset(<a class="member field">hash</a>, <var>0</var>, <b>sizeof</b>(<a class="member field">hash</a>));</samp>
+<samp></samp>
+<samp>        <em>auto</em> <dfn class="local col6 decl">callback</dfn> = [<b>this</b>](<em>const</em> <span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a> <dfn class="local col7 decl">ngram</dfn>, <em>const</em> <em>int</em> <dfn class="local col8 decl">offset</dfn>) { <b>return</b> <b>this</b>-&gt;putNGramBase(<a class="local col7 ref">ngram</a>, <a class="local col8 ref">offset</a>); };</samp>
+<samp>        <i class="doc">/// ssize_t is used here because unsigned can't be used with condition like `i &gt;= 0`, unsigned always &gt;= 0</i></samp>
+<samp><i class="doc">        /// And also adding from the end guarantees that we will find first occurence because we will lookup bigger offsets first.</i></samp>
+<samp>        <b>for</b> (<em>auto</em> <dfn class="local col9 decl">i</dfn> = <b>static_cast</b>&lt;<a class="typedef">ssize_t</a>&gt;(<a class="member field">needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>)); <a class="local col9 ref">i</a> &gt;= <var>0</var>; --<a class="local col9 ref">i</a>)</samp>
+<samp>            <span class="namespace">VolnitskyTraits::</span>putNGram&lt;<a class="tu member">CaseSensitive</a>, <a class="tu member">ASCII</a>&gt;(<b>this</b>-&gt;needle + <a class="local col9 ref">i</a>, <a class="local col9 ref">i</a> + <var>1</var>, <b>this</b>-&gt;needle, <a class="local col6 ref">callback</a>);</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp></samp>
+<samp>    <i class="doc">/// If not found, the end of the haystack is returned.</i></samp>
+<samp>    <em>const</em> <a class="typedef">UInt8</a> * <dfn class="decl def fn">search</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <em>const</em> <dfn class="local col0 decl">haystack</dfn>, <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col1 decl">haystack_size</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <b>if</b> (<a class="member field">needle_size</a> == <var>0</var>)</samp>
+<samp>            <b>return</b> <a class="local col0 ref">haystack</a>;</samp>
+<samp></samp>
+<samp>        <em>const</em> <em>auto</em> <dfn class="local col2 decl">haystack_end</dfn> = <a class="local col0 ref">haystack</a> + <a class="local col1 ref">haystack_size</a>;</samp>
+<samp></samp>
+<samp>        <b>if</b> (<a class="member field">fallback</a> || <a class="local col1 ref">haystack_size</a> &lt;= <a class="member field">needle_size</a>)</samp>
+<samp>            <b>return</b> <a class="member field">fallback_searcher</a>.search(<a class="local col0 ref">haystack</a>, <a class="local col2 ref">haystack_end</a>);</samp>
+<samp></samp>
+<samp>        <i class="doc">/// Let's "apply" the needle to the haystack and compare the n-gram from the end of the needle.</i></samp>
+<samp>        <em>const</em> <em>auto</em> * <dfn class="local col3 decl">pos</dfn> = <a class="local col0 ref">haystack</a> + <a class="member field">needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>);</samp>
+<samp>        <b>for</b> (; <a class="local col3 ref">pos</a> &lt;= <a class="local col2 ref">haystack_end</a> - <a class="member field">needle_size</a>; <a class="local col3 ref">pos</a> += <a class="member field">step</a>)</samp>
+<samp>        {</samp>
+<samp>            <i class="doc">/// We look at all the cells of the hash table that can correspond to the n-gram from haystack.</i></samp>
+<samp>            <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col4 decl">cell_num</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref fn">toNGram</a>(<a class="local col3 ref">pos</a>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>];</samp>
+<samp>                 <a class="local col4 ref">cell_num</a> = (<a class="local col4 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>)</samp>
+<samp>            {</samp>
+<samp>                <i class="doc">/// When found - compare bytewise, using the offset from the hash table.</i></samp>
+<samp>                <em>const</em> <em>auto</em> <dfn class="local col5 decl">res</dfn> = <a class="local col3 ref">pos</a> - (<a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>] - <var>1</var>);</samp>
+<samp></samp>
+<samp>                <i class="doc">/// pointer in the code is always padded array so we can use pagesafe semantics</i></samp>
+<samp>                <b>if</b> (<a class="member field">fallback_searcher</a>.compare(<a class="local col0 ref">haystack</a>, <a class="local col2 ref">haystack_end</a>, <a class="local col5 ref">res</a>))</samp>
+<samp>                    <b>return</b> <a class="local col5 ref">res</a>;</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp></samp>
+<samp>        <b>return</b> <a class="member field">fallback_searcher</a>.search(<a class="local col3 ref">pos</a> - <a class="member field">step</a> + <var>1</var>, <a class="local col2 ref">haystack_end</a>);</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <em>const</em> <em>char</em> * <dfn class="decl def fn">search</dfn>(<em>const</em> <em>char</em> * <dfn class="local col6 decl">haystack</dfn>, <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col7 decl">haystack_size</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <b>return</b> <b>reinterpret_cast</b>&lt;<em>const</em> <em>char</em> *&gt;(search(<b>reinterpret_cast</b>&lt;<em>const</em> <a class="typedef">UInt8</a> *&gt;(<a class="local col6 ref">haystack</a>), <a class="local col7 ref">haystack_size</a>));</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp><b>protected</b>:</samp>
+<samp>    <em>void</em> <dfn class="decl def fn">putNGramBase</dfn>(<em>const</em> <span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a> <dfn class="local col8 decl">ngram</dfn>, <em>const</em> <em>int</em> <dfn class="local col9 decl">offset</dfn>)</samp>
+<samp>    {</samp>
+<samp>        <i class="doc">/// Put the offset for the n-gram in the corresponding cell or the nearest free cell.</i></samp>
+<samp>        <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col0 decl">cell_num</dfn> = <a class="local col8 ref">ngram</a> % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>;</samp>
+<samp></samp>
+<samp>        <b>while</b> (<a class="member field">hash</a>[<a class="local col0 ref">cell_num</a>])</samp>
+<samp>            <a class="local col0 ref">cell_num</a> = (<a class="local col0 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <i class="doc">/// Search for the next free cell.</i></samp>
+<samp></samp>
+<samp>        <a class="member field">hash</a>[<a class="local col0 ref">cell_num</a>] = <a class="local col9 ref">offset</a>;</samp>
+<samp>    }</samp>
+<samp>};</samp>
+<samp></samp>
+<samp></samp>
+<samp><b>template</b> &lt;<em>bool</em> CaseSensitive, <em>bool</em> ASCII, <b>typename</b> FallbackSearcher&gt;</samp>
+<samp><b>class</b> <dfn class="type def">MultiVolnitskyBase</dfn></samp>
+<samp>{</samp>
+<samp><b>private</b>:</samp>
+<samp>    <i class="doc">/// needles and their offsets</i></samp>
+<samp>    <em>const</em> <span class="namespace">std::</span><a class="type">vector</a>&lt;<a class="type">StringRef</a>&gt; &amp; <dfn class="decl field">needles</dfn>;</samp>
+<samp></samp>
+<samp></samp>
+<samp>    <i class="doc">/// fallback searchers</i></samp>
+<samp>    <span class="namespace">std::</span><a class="type">vector</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt; <dfn class="decl field">fallback_needles</dfn>;</samp>
+<samp>    <span class="namespace">std::</span><a class="type">vector</a>&lt;FallbackSearcher&gt; <dfn class="decl field">fallback_searchers</dfn>;</samp>
+<samp></samp>
+<samp>    <i class="doc">/// because std::pair&lt;&gt; is not POD</i></samp>
+<samp>    <b>struct</b> <dfn class="type def">OffsetId</dfn></samp>
+<samp>    {</samp>
+<samp>        <span class="namespace">VolnitskyTraits::</span><a class="typedef">Id</a> <dfn class="decl field">id</dfn>;</samp>
+<samp>        <span class="namespace">VolnitskyTraits::</span><a class="typedef">Offset</a> <dfn class="decl field">off</dfn>;</samp>
+<samp>    };</samp>
+<samp></samp>
+<samp>    <a class="type">OffsetId</a> <dfn class="decl field">hash</dfn>[<span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>];</samp>
+<samp></samp>
+<samp>    <i class="doc">/// step for each bunch of strings</i></samp>
+<samp>    <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl field">step</dfn>;</samp>
+<samp></samp>
+<samp>    <i class="doc">/// last index of offsets that was not processed</i></samp>
+<samp>    <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl field">last</dfn>;</samp>
+<samp></samp>
+<samp>    <i class="doc">/// limit for adding to hashtable. In worst case with case insentive search, the table will be filled at most as half</i></samp>
+<samp>    <em>static</em> <b>constexpr</b> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl def">small_limit</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a> / <var>8</var>;</samp>
+<samp></samp>
+<samp><b>public</b>:</samp>
+<samp>    <dfn class="decl def fn">MultiVolnitskyBase</dfn>(<em>const</em> <span class="namespace">std::</span><a class="type">vector</a>&lt;<a class="type">StringRef</a>&gt; &amp; <dfn class="local col1 decl">needles_</dfn>) : <a class="member field">needles</a>{<a class="local col1 ref">needles_</a>}, <a class="member field">step</a>{<var>0</var>}, <a class="member field">last</a>{<var>0</var>}</samp>
+<samp>    {</samp>
+<samp>        <a class="member field">fallback_searchers</a>.reserve(<a class="member field">needles</a>.<a class="ref fn">size</a>());</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <i class="doc">/**</i></samp>
+<samp><i class="doc">     * This function is needed to initialize hash table</i></samp>
+<samp><i class="doc">     * Returns `true` if there is nothing to initialize</i></samp>
+<samp><i class="doc">     * and `false` if we have something to initialize and initializes it.</i></samp>
+<samp><i class="doc">     * This function is a kind of fallback if there are many needles.</i></samp>
+<samp><i class="doc">     * We actually destroy the hash table and initialize it with uninitialized needles</i></samp>
+<samp><i class="doc">     * and search through the haystack again.</i></samp>
+<samp><i class="doc">     * The actual usage of this function is like this:</i></samp>
+<samp><i class="doc">     * while (hasMoreToSearch())</i></samp>
+<samp><i class="doc">     * {</i></samp>
+<samp><i class="doc">     *     search inside the haystack with the known needles</i></samp>
+<samp><i class="doc">     * }</i></samp>
+<samp><i class="doc">     */</i></samp>
+<samp>    <em>bool</em> <dfn class="decl def fn">hasMoreToSearch</dfn>()</samp>
+<samp>    {</samp>
+<samp>        <b>if</b> (<a class="member field">last</a> == <a class="member field">needles</a>.<a class="ref fn">size</a>())</samp>
+<samp>            <b>return</b> <b>false</b>;</samp>
+<samp></samp>
+<samp>        memset(<a class="member field">hash</a>, <var>0</var>, <b>sizeof</b>(<a class="member field">hash</a>));</samp>
+<samp>        <a class="member field">fallback_needles</a>.<a class="ref fn">clear</a>();</samp>
+<samp>        <a class="member field">step</a> = <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>();</samp>
+<samp></samp>
+<samp>        <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">buf</dfn> = <var>0</var>;</samp>
+<samp>        <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col3 decl">size</dfn> = <a class="member field">needles</a>.<a class="ref fn">size</a>();</samp>
+<samp></samp>
+<samp>        <b>for</b> (; <a class="member field">last</a> &lt; <a class="local col3 ref">size</a>; ++<a class="member field">last</a>)</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <em>char</em> * <dfn class="local col4 decl">cur_needle_data</dfn> = <a class="member field">needles</a>[<a class="member field">last</a>].data;</samp>
+<samp>            <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col5 decl">cur_needle_size</dfn> = <a class="member field">needles</a>[<a class="member field">last</a>].size;</samp>
+<samp></samp>
+<samp>            <i class="doc">/// save the indices of fallback searchers</i></samp>
+<samp>            <b>if</b> (<span class="namespace">VolnitskyTraits::</span><a class="ref fn">isFallbackNeedle</a>(<a class="local col5 ref">cur_needle_size</a>))</samp>
+<samp>            {</samp>
+<samp>                <a class="member field">fallback_needles</a>.push_back(<a class="member field">last</a>);</samp>
+<samp>            }</samp>
+<samp>            <b>else</b></samp>
+<samp>            {</samp>
+<samp>                <i class="doc">/// put all bigrams</i></samp>
+<samp>                <em>auto</em> <dfn class="local col6 decl">callback</dfn> = [<b>this</b>](<em>const</em> <span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a> <dfn class="local col7 decl">ngram</dfn>, <em>const</em> <em>int</em> <dfn class="local col8 decl">offset</dfn>)</samp>
+<samp>                {</samp>
+<samp>                    <b>return</b> <b>this</b>-&gt;putNGramBase(<a class="local col7 ref">ngram</a>, <a class="local col8 ref">offset</a>, <b>this</b>-&gt;last);</samp>
+<samp>                };</samp>
+<samp></samp>
+<samp>                <a class="local col2 ref">buf</a> += <a class="local col5 ref">cur_needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>) + <var>1</var>;</samp>
+<samp></samp>
+<samp>                <i class="doc">/// this is the condition when we actually need to stop and start searching with known needles</i></samp>
+<samp>                <b>if</b> (<a class="local col2 ref">buf</a> &gt; <a class="member">small_limit</a>)</samp>
+<samp>                    <b>break</b>;</samp>
+<samp></samp>
+<samp>                <a class="member field">step</a> = <span class="namespace">std::</span>min(<a class="member field">step</a>, <a class="local col5 ref">cur_needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>) + <var>1</var>);</samp>
+<samp>                <b>for</b> (<em>auto</em> <dfn class="local col9 decl">i</dfn> = <b>static_cast</b>&lt;<em>int</em>&gt;(<a class="local col5 ref">cur_needle_size</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>)); <a class="local col9 ref">i</a> &gt;= <var>0</var>; --<a class="local col9 ref">i</a>)</samp>
+<samp>                {</samp>
+<samp>                    <span class="namespace">VolnitskyTraits::</span>putNGram&lt;<a class="tu member">CaseSensitive</a>, <a class="tu member">ASCII</a>&gt;(</samp>
+<samp>                        <b>reinterpret_cast</b>&lt;<em>const</em> <a class="typedef">UInt8</a> *&gt;(<a class="local col4 ref">cur_needle_data</a>) + <a class="local col9 ref">i</a>,</samp>
+<samp>                        <a class="local col9 ref">i</a> + <var>1</var>,</samp>
+<samp>                        <b>reinterpret_cast</b>&lt;<em>const</em> <a class="typedef">UInt8</a> *&gt;(<a class="local col4 ref">cur_needle_data</a>),</samp>
+<samp>                        <a class="local col6 ref">callback</a>);</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>            <a class="member field">fallback_searchers</a>.emplace_back(<a class="local col4 ref">cur_needle_data</a>, <a class="local col5 ref">cur_needle_size</a>);</samp>
+<samp>        }</samp>
+<samp>        <b>return</b> <b>true</b>;</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <b>inline</b> <em>bool</em> <dfn class="decl def fn">searchOne</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col0 decl">haystack</dfn>, <em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col1 decl">haystack_end</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">fallback_size</dfn> = <a class="member field">fallback_needles</a>.<a class="ref fn">size</a>();</samp>
+<samp>        <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col3 decl">i</dfn> = <var>0</var>; <a class="local col3 ref">i</a> &lt; <a class="local col2 ref">fallback_size</a>; ++<a class="local col3 ref">i</a>)</samp>
+<samp>            <b>if</b> (<a class="member field">fallback_searchers</a>[<a class="member field">fallback_needles</a>[<a class="local col3 ref">i</a>]].search(<a class="local col0 ref">haystack</a>, <a class="local col1 ref">haystack_end</a>) != <a class="local col1 ref">haystack_end</a>)</samp>
+<samp>                <b>return</b> <b>true</b>;</samp>
+<samp></samp>
+<samp>        <i class="doc">/// check if we have one non empty volnitsky searcher</i></samp>
+<samp>        <b>if</b> (<a class="member field">step</a> != <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>())</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <em>auto</em> * <dfn class="local col4 decl">pos</dfn> = <a class="local col0 ref">haystack</a> + <a class="member field">step</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>);</samp>
+<samp>            <b>for</b> (; <a class="local col4 ref">pos</a> &lt;= <a class="local col1 ref">haystack_end</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>); <a class="local col4 ref">pos</a> += <a class="member field">step</a>)</samp>
+<samp>            {</samp>
+<samp>                <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col5 decl">cell_num</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref fn">toNGram</a>(<a class="local col4 ref">pos</a>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off;</samp>
+<samp>                     <a class="local col5 ref">cell_num</a> = (<a class="local col5 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>)</samp>
+<samp>                {</samp>
+<samp>                    <b>if</b> (<a class="local col4 ref">pos</a> &gt;= <a class="local col0 ref">haystack</a> + <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off - <var>1</var>)</samp>
+<samp>                    {</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col6 decl">res</dfn> = <a class="local col4 ref">pos</a> - (<a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off - <var>1</var>);</samp>
+<samp>                        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col7 decl">ind</dfn> = <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].id;</samp>
+<samp>                        <b>if</b> (<a class="local col6 ref">res</a> + <a class="member field">needles</a>[<a class="local col7 ref">ind</a>].size &lt;= <a class="local col1 ref">haystack_end</a> &amp;&amp; <a class="member field">fallback_searchers</a>[<a class="local col7 ref">ind</a>].compare(<a class="local col0 ref">haystack</a>, <a class="local col1 ref">haystack_end</a>, <a class="local col6 ref">res</a>))</samp>
+<samp>                            <b>return</b> <b>true</b>;</samp>
+<samp>                    }</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp>        <b>return</b> <b>false</b>;</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <b>inline</b> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="decl def fn">searchOneFirstIndex</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col8 decl">haystack</dfn>, <em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col9 decl">haystack_end</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col0 decl">fallback_size</dfn> = <a class="member field">fallback_needles</a>.<a class="ref fn">size</a>();</samp>
+<samp></samp>
+<samp>        <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col1 decl">ans</dfn> = <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>();</samp>
+<samp></samp>
+<samp>        <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">i</dfn> = <var>0</var>; <a class="local col2 ref">i</a> &lt; <a class="local col0 ref">fallback_size</a>; ++<a class="local col2 ref">i</a>)</samp>
+<samp>            <b>if</b> (<a class="member field">fallback_searchers</a>[<a class="member field">fallback_needles</a>[<a class="local col2 ref">i</a>]].search(<a class="local col8 ref">haystack</a>, <a class="local col9 ref">haystack_end</a>) != <a class="local col9 ref">haystack_end</a>)</samp>
+<samp>                <a class="local col1 ref">ans</a> = <span class="namespace">std::</span>min(<a class="local col1 ref">ans</a>, <a class="member field">fallback_needles</a>[<a class="local col2 ref">i</a>]);</samp>
+<samp></samp>
+<samp>        <i class="doc">/// check if we have one non empty volnitsky searcher</i></samp>
+<samp>        <b>if</b> (<a class="member field">step</a> != <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>())</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <em>auto</em> * <dfn class="local col3 decl">pos</dfn> = <a class="local col8 ref">haystack</a> + <a class="member field">step</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>);</samp>
+<samp>            <b>for</b> (; <a class="local col3 ref">pos</a> &lt;= <a class="local col9 ref">haystack_end</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>); <a class="local col3 ref">pos</a> += <a class="member field">step</a>)</samp>
+<samp>            {</samp>
+<samp>                <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col4 decl">cell_num</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref fn">toNGram</a>(<a class="local col3 ref">pos</a>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>].off;</samp>
+<samp>                     <a class="local col4 ref">cell_num</a> = (<a class="local col4 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>)</samp>
+<samp>                {</samp>
+<samp>                    <b>if</b> (<a class="local col3 ref">pos</a> &gt;= <a class="local col8 ref">haystack</a> + <a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>].off - <var>1</var>)</samp>
+<samp>                    {</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col5 decl">res</dfn> = <a class="local col3 ref">pos</a> - (<a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>].off - <var>1</var>);</samp>
+<samp>                        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col6 decl">ind</dfn> = <a class="member field">hash</a>[<a class="local col4 ref">cell_num</a>].id;</samp>
+<samp>                        <b>if</b> (<a class="local col5 ref">res</a> + <a class="member field">needles</a>[<a class="local col6 ref">ind</a>].size &lt;= <a class="local col9 ref">haystack_end</a> &amp;&amp; <a class="member field">fallback_searchers</a>[<a class="local col6 ref">ind</a>].compare(<a class="local col8 ref">haystack</a>, <a class="local col9 ref">haystack_end</a>, <a class="local col5 ref">res</a>))</samp>
+<samp>                            <a class="local col1 ref">ans</a> = <span class="namespace">std::</span><a class="ref fn">min</a>(<a class="local col1 ref">ans</a>, <a class="local col6 ref">ind</a>);</samp>
+<samp>                    }</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp></samp>
+<samp>        <i>/*</i></samp>
+<samp><i>        * if nothing was found, ans + 1 will be equal to zero and we can</i></samp>
+<samp><i>        * assign it into the result because we need to return the position starting with one</i></samp>
+<samp><i>        */</i></samp>
+<samp>        <b>return</b> <a class="local col1 ref">ans</a> + <var>1</var>;</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <b>template</b> &lt;<b>typename</b> CountCharsCallback&gt;</samp>
+<samp>    <b>inline</b> <a class="typedef">UInt64</a> <dfn class="decl def fn">searchOneFirstPosition</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col7 decl">haystack</dfn>, <em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col8 decl">haystack_end</dfn>, <em>const</em> CountCharsCallback &amp; <dfn class="local col9 decl">count_chars</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col0 decl">fallback_size</dfn> = <a class="member field">fallback_needles</a>.<a class="ref fn">size</a>();</samp>
+<samp></samp>
+<samp>        <a class="typedef">UInt64</a> <dfn class="local col1 decl">ans</dfn> = <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<a class="typedef">UInt64</a>&gt;::<a class="ref fn">max</a>();</samp>
+<samp></samp>
+<samp>        <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">i</dfn> = <var>0</var>; <a class="local col2 ref">i</a> &lt; <a class="local col0 ref">fallback_size</a>; ++<a class="local col2 ref">i</a>)</samp>
+<samp>            <b>if</b> (<em>auto</em> <dfn class="local col3 decl">pos</dfn> = <a class="member field">fallback_searchers</a>[<a class="member field">fallback_needles</a>[<a class="local col2 ref">i</a>]].search(<a class="local col7 ref">haystack</a>, <a class="local col8 ref">haystack_end</a>); <a class="local col3 ref">pos</a> != <a class="local col8 ref">haystack_end</a>)</samp>
+<samp>                <a class="local col1 ref">ans</a> = <span class="namespace">std::</span>min&lt;<a class="typedef">UInt64</a>&gt;(<a class="local col1 ref">ans</a>, <a class="local col3 ref">pos</a> - <a class="local col7 ref">haystack</a>);</samp>
+<samp></samp>
+<samp>        <i class="doc">/// check if we have one non empty volnitsky searcher</i></samp>
+<samp>        <b>if</b> (<a class="member field">step</a> != <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>())</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <em>auto</em> * <dfn class="local col4 decl">pos</dfn> = <a class="local col7 ref">haystack</a> + <a class="member field">step</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>);</samp>
+<samp>            <b>for</b> (; <a class="local col4 ref">pos</a> &lt;= <a class="local col8 ref">haystack_end</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>); <a class="local col4 ref">pos</a> += <a class="member field">step</a>)</samp>
+<samp>            {</samp>
+<samp>                <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col5 decl">cell_num</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref fn">toNGram</a>(<a class="local col4 ref">pos</a>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off;</samp>
+<samp>                     <a class="local col5 ref">cell_num</a> = (<a class="local col5 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>)</samp>
+<samp>                {</samp>
+<samp>                    <b>if</b> (<a class="local col4 ref">pos</a> &gt;= <a class="local col7 ref">haystack</a> + <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off - <var>1</var>)</samp>
+<samp>                    {</samp>
+<samp>                        <em>const</em> <em>auto</em> <dfn class="local col6 decl">res</dfn> = <a class="local col4 ref">pos</a> - (<a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].off - <var>1</var>);</samp>
+<samp>                        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col7 decl">ind</dfn> = <a class="member field">hash</a>[<a class="local col5 ref">cell_num</a>].id;</samp>
+<samp>                        <b>if</b> (<a class="local col6 ref">res</a> + <a class="member field">needles</a>[<a class="local col7 ref">ind</a>].size &lt;= <a class="local col8 ref">haystack_end</a> &amp;&amp; <a class="member field">fallback_searchers</a>[<a class="local col7 ref">ind</a>].compare(<a class="local col7 ref">haystack</a>, <a class="local col8 ref">haystack_end</a>, <a class="local col6 ref">res</a>))</samp>
+<samp>                            <a class="local col1 ref">ans</a> = <span class="namespace">std::</span>min&lt;<a class="typedef">UInt64</a>&gt;(<a class="local col1 ref">ans</a>, <a class="local col6 ref">res</a> - <a class="local col7 ref">haystack</a>);</samp>
+<samp>                    }</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp>        <b>if</b> (<a class="local col1 ref">ans</a> == <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<a class="typedef">UInt64</a>&gt;::<a class="ref fn">max</a>())</samp>
+<samp>            <b>return</b> <var>0</var>;</samp>
+<samp>        <b>return</b> <a class="local col9 ref">count_chars</a>(<a class="local col7 ref">haystack</a>, <a class="local col7 ref">haystack</a> + <a class="local col1 ref">ans</a>);</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <b>template</b> &lt;<b>typename</b> CountCharsCallback, <b>typename</b> AnsType&gt;</samp>
+<samp>    <b>inline</b> <em>void</em> <dfn class="decl def fn">searchOneAll</dfn>(<em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col8 decl">haystack</dfn>, <em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col9 decl">haystack_end</dfn>, AnsType * <dfn class="local col0 decl">ans</dfn>, <em>const</em> CountCharsCallback &amp; <dfn class="local col1 decl">count_chars</dfn>) <em>const</em></samp>
+<samp>    {</samp>
+<samp>        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">fallback_size</dfn> = <a class="member field">fallback_needles</a>.<a class="ref fn">size</a>();</samp>
+<samp>        <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col3 decl">i</dfn> = <var>0</var>; <a class="local col3 ref">i</a> &lt; <a class="local col2 ref">fallback_size</a>; ++<a class="local col3 ref">i</a>)</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <a class="typedef">UInt8</a> * <dfn class="local col4 decl">ptr</dfn> = <a class="member field">fallback_searchers</a>[<a class="member field">fallback_needles</a>[<a class="local col3 ref">i</a>]].search(<a class="local col8 ref">haystack</a>, <a class="local col9 ref">haystack_end</a>);</samp>
+<samp>            <b>if</b> (<a class="local col4 ref">ptr</a> != <a class="local col9 ref">haystack_end</a>)</samp>
+<samp>                <a class="local col0 ref">ans</a>[<a class="member field">fallback_needles</a>[<a class="local col3 ref">i</a>]] = <a class="local col1 ref">count_chars</a>(<a class="local col8 ref">haystack</a>, <a class="local col4 ref">ptr</a>);</samp>
+<samp>        }</samp>
+<samp></samp>
+<samp>        <i class="doc">/// check if we have one non empty volnitsky searcher</i></samp>
+<samp>        <b>if</b> (<a class="member field">step</a> != <span class="namespace">std::</span><a class="type">numeric_limits</a>&lt;<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span>&gt;::<a class="ref fn">max</a>())</samp>
+<samp>        {</samp>
+<samp>            <em>const</em> <em>auto</em> * <dfn class="local col5 decl">pos</dfn> = <a class="local col8 ref">haystack</a> + <a class="member field">step</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>);</samp>
+<samp>            <b>for</b> (; <a class="local col5 ref">pos</a> &lt;= <a class="local col9 ref">haystack_end</a> - <b>sizeof</b>(<span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a>); <a class="local col5 ref">pos</a> += <a class="member field">step</a>)</samp>
+<samp>            {</samp>
+<samp>                <b>for</b> (<span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col6 decl">cell_num</dfn> = <span class="namespace">VolnitskyTraits::</span><a class="ref fn">toNGram</a>(<a class="local col5 ref">pos</a>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>; <a class="member field">hash</a>[<a class="local col6 ref">cell_num</a>].off;</samp>
+<samp>                     <a class="local col6 ref">cell_num</a> = (<a class="local col6 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>)</samp>
+<samp>                {</samp>
+<samp>                    <b>if</b> (<a class="local col5 ref">pos</a> &gt;= <a class="local col8 ref">haystack</a> + <a class="member field">hash</a>[<a class="local col6 ref">cell_num</a>].off - <var>1</var>)</samp>
+<samp>                    {</samp>
+<samp>                        <em>const</em> <em>auto</em> * <dfn class="local col7 decl">res</dfn> = <a class="local col5 ref">pos</a> - (<a class="member field">hash</a>[<a class="local col6 ref">cell_num</a>].off - <var>1</var>);</samp>
+<samp>                        <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col8 decl">ind</dfn> = <a class="member field">hash</a>[<a class="local col6 ref">cell_num</a>].id;</samp>
+<samp>                        <b>if</b> (<a class="local col0 ref">ans</a>[<a class="local col8 ref">ind</a>] == <var>0</var> &amp;&amp; <a class="local col7 ref">res</a> + <a class="member field">needles</a>[<a class="local col8 ref">ind</a>].size &lt;= <a class="local col9 ref">haystack_end</a> &amp;&amp; <a class="member field">fallback_searchers</a>[<a class="local col8 ref">ind</a>].compare(<a class="local col8 ref">haystack</a>, <a class="local col9 ref">haystack_end</a>, <a class="local col7 ref">res</a>))</samp>
+<samp>                            <a class="local col0 ref">ans</a>[<a class="local col8 ref">ind</a>] = <a class="local col1 ref">count_chars</a>(<a class="local col8 ref">haystack</a>, <a class="local col7 ref">res</a>);</samp>
+<samp>                    }</samp>
+<samp>                }</samp>
+<samp>            }</samp>
+<samp>        }</samp>
+<samp>    }</samp>
+<samp></samp>
+<samp>    <em>void</em> <dfn class="decl def fn">putNGramBase</dfn>(<em>const</em> <span class="namespace">VolnitskyTraits::</span><a class="typedef">Ngram</a> <dfn class="local col9 decl">ngram</dfn>, <em>const</em> <em>int</em> <dfn class="local col0 decl">offset</dfn>, <em>const</em> <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col1 decl">num</dfn>)</samp>
+<samp>    {</samp>
+<samp>        <span class='typedef' title='size_t' data-type='unsigned long' data-ref="size_t" data-ref-filename="size_t">size_t</span> <dfn class="local col2 decl">cell_num</dfn> = <a class="local col9 ref">ngram</a> % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>;</samp>
+<samp></samp>
+<samp>        <b>while</b> (<a class="member field">hash</a>[<a class="local col2 ref">cell_num</a>].off)</samp>
+<samp>            <a class="local col2 ref">cell_num</a> = (<a class="local col2 ref">cell_num</a> + <var>1</var>) % <span class="namespace">VolnitskyTraits::</span><a class="ref">hash_size</a>;</samp>
+<samp></samp>
+<samp>        <a class="member field">hash</a>[<a class="local col2 ref">cell_num</a>] = {<b>static_cast</b>&lt;<span class="namespace">VolnitskyTraits::</span><a class="typedef">Id</a>&gt;(<a class="local col1 ref">num</a>), <b>static_cast</b>&lt;<span class="namespace">VolnitskyTraits::</span><a class="typedef">Offset</a>&gt;(<a class="local col0 ref">offset</a>)};</samp>
+<samp>    }</samp>
+<samp>};</samp>
+<samp></samp>
+<samp></samp>
+<samp><b>using</b> <dfn class="typedef">Volnitsky</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>true</b>, <b>true</b>, <a class="typedef">ASCIICaseSensitiveStringSearcher</a>&gt;;</samp>
+<samp><b>using</b> <dfn class="typedef">VolnitskyUTF8</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>true</b>, <b>false</b>, <a class="typedef">ASCIICaseSensitiveStringSearcher</a>&gt;; <i class="doc">/// exactly same as Volnitsky</i></samp>
+<samp><b>using</b> <dfn class="typedef">VolnitskyCaseInsensitive</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>false</b>, <b>true</b>, <a class="typedef">ASCIICaseInsensitiveStringSearcher</a>&gt;; <i class="doc">/// ignores non-ASCII bytes</i></samp>
+<samp><b>using</b> <dfn class="typedef">VolnitskyCaseInsensitiveUTF8</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>false</b>, <b>false</b>, <a class="typedef">UTF8CaseInsensitiveStringSearcher</a>&gt;;</samp>
+<samp></samp>
+<samp><b>using</b> <dfn class="typedef">VolnitskyCaseSensitiveToken</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>true</b>, <b>true</b>, <a class="typedef">ASCIICaseSensitiveTokenSearcher</a>&gt;;</samp>
+<samp><b>using</b> <dfn class="typedef">VolnitskyCaseInsensitiveToken</dfn> = <a class="type">VolnitskyBase</a>&lt;<b>false</b>, <b>true</b>, <a class="typedef">ASCIICaseInsensitiveTokenSearcher</a>&gt;;</samp>
+<samp></samp>
+<samp><b>using</b> <dfn class="typedef">MultiVolnitsky</dfn> = <a class="type">MultiVolnitskyBase</a>&lt;<b>true</b>, <b>true</b>, <a class="typedef">ASCIICaseSensitiveStringSearcher</a>&gt;;</samp>
+<samp><b>using</b> <dfn class="typedef">MultiVolnitskyUTF8</dfn> = <a class="type">MultiVolnitskyBase</a>&lt;<b>true</b>, <b>false</b>, <a class="typedef">ASCIICaseSensitiveStringSearcher</a>&gt;;</samp>
+<samp><b>using</b> <dfn class="typedef">MultiVolnitskyCaseInsensitive</dfn> = <a class="type">MultiVolnitskyBase</a>&lt;<b>false</b>, <b>true</b>, <a class="typedef">ASCIICaseInsensitiveStringSearcher</a>&gt;;</samp>
+<samp><b>using</b> <dfn class="typedef">MultiVolnitskyCaseInsensitiveUTF8</dfn> = <a class="type">MultiVolnitskyBase</a>&lt;<b>false</b>, <b>false</b>, <a class="typedef">UTF8CaseInsensitiveStringSearcher</a>&gt;;</samp>
+<samp></samp>
+<samp></samp>
+<samp>}</samp>
+<samp></samp>
+</pre>
+
+<pre id="clickhouse-client">
+<b class="lightgreen">milovidov@milovidov-desktop</b>:<b class="lightblue">~/work/ClickHouse</b>$ clickhouse-client 
+ClickHouse client version 20.7.1.1.
+Connecting to localhost:9000 as user default.
+Connected to ClickHouse server version 20.7.1 revision 54437.
+
+milovidov-desktop :) SELECT SearchPhrase<b>,</b> count<b class="darkyellow">()</b> FROM test<b>.</b>hits GROUP BY SearchPhrase ORDER BY count<b class="darkyellow">()</b> DESC LIMIT <b class="darkgreen">10</b>
+
+<b>SELECT</b>
+    <b class="darkcyan">SearchPhrase</b>,
+    <b class="darkyellow">count()</b>
+<b>FROM</b> <b class="darkcyan">test.hits</b>
+<b>GROUP BY</b> <b class="darkcyan">SearchPhrase</b>
+<b>ORDER BY</b> <b class="darkyellow">count()</b> <b>DESC</b>
+<b>LIMIT</b> 10
+
+┌─<b>SearchPhrase</b>───────────────┬─<b>count()</b>─┐
+│                            │ 8267016 │
+│ ст 12.168.0.1              │    3567 │
+│ orton                      │    2402 │
+│ игры лица и гым чан дизайн │    2166 │
+│ imgsrc                     │    1848 │
+│ брызговик                  │    1659 │
+│ индийский афтозный         │    1549 │
+│ ооооотводка и              │    1480 │
+│ выступная мужчин           │    1247 │
+│ юность                     │    1112 │
+└────────────────────────────┴─────────┘
+
+10 rows in set. Elapsed: 0.054 sec. Processed 8.87 million rows, 112.70 MB (165.22 million rows/s., 2.10 GB/s.)
+
+milovidov-desktop :)
+</pre>
+
+<pre id="textarea"><textarea spellcheck="false">oO08 iIlL1| g9qCGQ ~-+=>
+
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Pack my box with five dozen liquor jugs.
+
+абвгдеёжзийклмнопрстуфхцчшщъыьэюя
+АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+В чащах юга жил бы цитрус? Да, но фальшивый экземпляр.
+</textarea></pre>
+
+<!-- <pre id="description"></pre> -->
+
+</body>
+<script type="text/javascript">
+    var fonts = [
+{name: 'agave', description: ''},
+{name: 'Anka/Coder', description: ''},
+{name: 'Anonymous Pro Minus', description: ''},
+{name: 'APL385 Unicode', description: ''},
+{name: 'Aurulent Sans Mono', description: ''},
+{name: 'AverageMono', description: ''},
+{name: 'B612 Mono', description: ''},
+{name: 'Bedstead', description: ''},
+{name: 'Bitstream Vera Sans Mono', description: ''},
+{name: 'Borg Sans Mono', description: ''},
+{name: 'BPmono', description: ''},
+{name: 'Bront', description: ''},
+{name: 'DejaVu Sans Mono - Bront', description: ''},
+{name: 'Ubuntu Mono - Bront', description: ''},
+{name: 'CamingoCode', description: ''},
+{name: 'Cascadia Code', description: ''},
+{name: 'CMU Typewriter Text', description: ''},
+{name: 'Code New Roman', description: ''},
+{name: 'CodingFontTobi', description: ''},
+{name: 'Comic Shanns', description: ''},
+{name: 'Consola Mono', description: ''},
+{name: 'Courier Prime Code', description: ''},
+{name: 'Cousine', description: ''},
+{name: 'CPMono_v07', description: ''},
+{name: 'Crisp', description: ''},
+{name: 'Cutive Mono', description: ''},
+{name: 'D2Coding ligature', description: ''},
+{name: 'DaddyTimeMono', description: ''},
+{name: 'DejaVu Sans Mono', description: ''},
+{name: 'Droid Sans Mono', description: ''},
+{name: 'Edlo', description: ''},
+{name: 'Ellograph CF', description: ''},
+{name: 'Fairfax HD', description: ''},
+{name: 'Fantasque Sans Mono', description: ''},
+{name: 'Fira Code', description: ''},
+{name: 'Fira Mono', description: ''},
+{name: 'Fixedsys Excelsior 3.01', description: ''},
+{name: 'IBM 3270', description: ''},
+{name: 'FreeMono', description: ''},
+{name: 'Generic Mono II', description: ''},
+{name: 'Go Mono', description: ''},
+{name: 'Hack', description: ''},
+{name: 'Hasklig', description: ''},
+{name: 'Hermit', description: ''},
+{name: 'Inconsolata', description: ''},
+{name: 'Inconsolata-dz', description: ''},
+{name: 'Inconsolata-g', description: ''},
+{name: 'Inconsolata LGC', description: ''},
+{name: 'Iosevka', description: ''},
+{name: 'Iosevka Slab', description: ''},
+{name: 'JetBrains Mono', description: ''},
+{name: 'Kawkab Mono', description: ''},
+{name: 'Latin Modern Mono Light', description: ''},
+{name: 'League Mono', description: ''},
+{name: 'Lekton', description: ''},
+{name: 'Liberation Mono', description: ''},
+{name: 'Linux Libertine Mono', description: ''},
+{name: 'Luculent', description: ''},
+{name: 'Luxi Mono', description: ''},
+{name: 'Mensch', description: ''},
+{name: 'Meslo LG M DZ', description: ''},
+{name: 'Metrickal', description: ''},
+{name: 'monofur', description: ''},
+{name: 'Monoid', description: ''},
+{name: 'mononoki', description: ''},
+{name: 'monoOne', description: ''},
+{name: 'MonospaceTypewriter', description: ''},
+{name: 'MonoSpatial', description: ''},
+{name: 'M+ 1m', description: ''},
+{name: 'M+ 1mn', description: ''},
+{name: 'M+ 2m', description: ''},
+{name: 'NanumGothic_Coding', description: ''},
+{name: 'Nimbus Mono', description: ''},
+{name: 'NotCourierSans', description: ''},
+{name: 'Noto Mono', description: ''},
+{name: 'NovaMono', description: ''},
+{name: 'Office Code Pro D', description: ''},
+{name: 'OpenDyslexicMono', description: ''},
+{name: 'Overpass Mono', description: ''},
+{name: 'Oxygen Mono', description: ''},
+{name: 'Panic Sans', description: ''},
+{name: 'IBM Plex Mono', description: ''},
+{name: 'Pointfree', description: ''},
+{name: 'ProFontWindows', description: ''},
+{name: 'ProggyVector', description: ''},
+{name: 'PT Mono', description: ''},
+{name: 'Quinze', description: ''},
+{name: 'Rec Mono Linear', description: ''},
+{name: 'Roboto Mono', description: ''},
+{name: 'saxMono', description: ''},
+{name: 'Share Tech Mono', description: ''},
+{name: 'Share-TechMonoTrue', description: ''},
+{name: 'SmallTypeWriting', description: ''},
+{name: 'Sometype Mono', description: ''},
+{name: 'Source Code Pro', description: ''},
+{name: 'Space Mono', description: ''},
+{name: 'Sudo', description: ''},
+{name: 'SVI Basic Manual', description: ''},
+{name: 'TeX Gyre Cursor', description: ''},
+{name: 'Ubuntu Mono', description: ''},
+{name: 'Verily Serif Mono', description: ''},
+{name: 'Victor Mono', description: ''},
+{name: 'Whois', description: ''},
+
+/// Additional fonts that might not be available.
+{name: 'DM Mono', description: ''},
+{name: 'Envy Code R', description: ''},
+{name: 'GohuFont', description: ''},
+{name: 'Cartograph Mono CF', description: ''},
+{name: 'Input Mono', description: ''},
+{name: 'Input Mono Condensed', description: ''},
+{name: 'Input Mono Compressed', description: ''},
+{name: 'Input Mono Narrow', description: ''},
+{name: 'MonoLisa', description: ''},
+{name: 'Mitra Mono', description: ''},
+{name: 'Terminus', description: ''},
+{name: 'Tlwg Mono', description: ''},
+{name: 'Lucida Console', description: ''},
+{name: 'Consolas', description: ''},
+{name: 'Monaco', description: ''},
+{name: 'Menlo', description: ''},
+{name: 'SFMono-Regular', description: ''},
+];
+
+    fonts.sort(function(a, b) { return a.name.localeCompare(b.name); });
+
+    fonts.forEach(function(elem)
+    {
+        var li = document.createElement('li');
+        li.innerHTML = elem.name;
+        
+        if (elem.name == 'Liberation Mono')
+        {
+            li.className = 'selected';
+//            $('#description').text(elem.description);
+        }
+        
+        var fonts_list = document.getElementById('fonts_list');
+        fonts_list.appendChild(li);
+        fonts_list.appendChild(document.createTextNode(' '));
+    });
+
+    // https://stackoverflow.com/questions/2881645/detect-whether-a-particular-font-is-installed
+    (function (document) {
+        var width;
+        var body = document.body;
+        
+        var createContainer = function(chars)
+        {
+            var container = document.createElement('span');
+            container.innerHTML = Array(100).join(chars);
+            container.style.cssText = [
+                'position:absolute',
+                'width:auto',
+                'font-size:10pt',
+                'left:-9999px'
+            ].join(' !important;');
+            return container;
+        }
+    
+        var getWidth = function(font_family, elem)
+        {
+            elem.style.fontFamily = font_family;
+        
+            body.appendChild(elem);
+            width = elem.clientWidth;
+            body.removeChild(elem);
+        
+            return width;
+        };
+        
+        var latin_elem = createContainer('wi');
+        var latin = 
+        {
+            elem: latin_elem,
+            mono_width: getWidth('monospace', latin_elem),
+            serif_width: getWidth('serif', latin_elem),
+            sans_width: getWidth('sans-serif', latin_elem),
+        };
+        
+        var cyrillic_elem = createContainer('абвгдеёжзийклмнопрстуфхцчшщъыьэюя');
+        var cyrillic = 
+        {
+            elem: cyrillic_elem,
+            mono_width: getWidth('monospace', cyrillic_elem),
+            serif_width: getWidth('serif', cyrillic_elem),
+            sans_width: getWidth('sans-serif', cyrillic_elem),
+        };
+    
+        var isFontAvailableImpl = function(font, script)
+        {
+            return script.mono_width !== getWidth(font + ',monospace', script.elem)
+                || script.sans_width !== getWidth(font + ',sans-serif', script.elem)
+                || script.serif_width !== getWidth(font + ',serif', script.elem);
+        }
+    
+        window.isFontAvailable = function(font)
+        {
+            return isFontAvailableImpl(font, latin);
+        };
+        
+        window.isCyrillicFontAvailable = function(font)
+        {
+            return isFontAvailableImpl(font, cyrillic);
+        };
+        
+        var box_drawing_check = document.createElement('span');
+        box_drawing_check.style.cssText = [
+            'position:absolute',
+            'width:auto',
+            'font-size:10pt',
+            'left:-9999px'
+        ].join(' !important;');
+        
+        window.isBoxDrawingAvailable = function(font)
+        {
+            box_drawing_check.style.fontFamily = font;
+            body.appendChild(box_drawing_check);
+            box_drawing_check.innerHTML = Array(100).join('─');
+            width_box = box_drawing_check.clientWidth;
+            box_drawing_check.innerHTML = Array(100).join('x');
+            width_chars = box_drawing_check.clientWidth;
+            body.removeChild(box_drawing_check);
+            
+            return width_box === width_chars;
+        };
+    })(document);
+
+    $('#fonts_list li').each(function()
+    {
+        if (isFontAvailable($(this).text()))
+        {
+            $(this).click(function()
+            {
+                var font = $(this).text();
+
+                $('#fonts_list li.selected').removeClass("selected");
+                $(this).addClass("selected");
+                $('pre').css("font-family", '"' + font + '"');
+                
+/*                var description = fonts.filter(x => x.name == font)[0].description;
+                $('#description').text(description);
+                
+                if (description)
+                {
+                    $('#selector-font-description').css('display', 'inline');
+                }
+                else
+                {   
+                    $('#selector-font-description').hide();
+                }*/
+            });
+        }
+        else
+        {
+            $(this).addClass("disabled");
+        }
+    });
+    
+    $('#trash').click(function()
+    {
+        $('#fonts_list li.selected').remove();
+    });
+    
+    $('#favorite').click(function()
+    {
+        $('#fonts_list li.selected').prependTo('#fonts_list');
+    });
+    
+    /// Fonts may load with delay. Will refresh information about their availability.
+    
+    setInterval(function()
+    {
+        $('#fonts_list li.disabled').each(function()
+        {
+            var font = $(this).text();
+            if (isFontAvailable(font))
+            {
+                $(this).removeClass('disabled');
+                $(this).click(function()
+                {
+                    $('#fonts_list li').removeClass("selected");
+                    $(this).addClass("selected");
+                    $('pre').css("font-family", font);
+                });
+                
+                if (!isCyrillicFontAvailable(font))
+                {
+                    $(this).addClass('no-cyrillic');
+                }
+                
+                if (!isBoxDrawingAvailable(font))
+                {
+                    $(this).addClass('no-box-drawing');
+                }
+            }
+        });
+    }, 1000);
+    
+    $('#sizes_list li').click(function()
+    {
+        $('#sizes_list li.selected').removeClass("selected");
+        $(this).addClass("selected");
+        $('pre').css("font-size", $(this).text());
+    });
+    
+    $('#examples_list li').click(function()
+    {
+        $('#examples_list li.selected').removeClass("selected");
+        $(this).addClass("selected");
+    
+        var pre_id = $(this).attr('data-pre-id');
+        var set_class = $(this).attr('data-set-class');
+        
+        $('pre').each(function()
+        {
+            $(this).toggle(this.id == pre_id).attr("class", set_class);
+        }); 
+    });
+</script>
+</html>
