@@ -1,1 +1,1 @@
-[https://alexey-milovidov.github.io/font-selector/]
+https://alexey-milovidov.github.io/font-selector/

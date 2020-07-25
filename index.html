@@ -2,9 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Font test</title>
-    
+
     <link rel="stylesheet" href="fonts.css"/>
-    
+
     <style type="text/css">
         li
         {
@@ -17,24 +17,24 @@
             line-height: 2;
             margin: 0.1rem;
         }
-        
+
         li.disabled, li.disabled:hover
         {
             background-color: #EEE;
             color: #888;
             cursor: not-allowed;
         }
-        
+
         li.no-cyrillic
         {
             opacity: 0.5;
         }
-        
+
         li.no-box-drawing
         {
             opacity: 0.5;
         }
-        
+
         li.selected, li.selected:hover
         {
             background-color: #FA4;
@@ -45,12 +45,12 @@
         {
             background-color: #FAA;
         }
-        
+
         ul
         {
             margin-right: 3rem;
         }
-        
+
         html, body
         {
             height: 100%;
@@ -64,40 +64,40 @@
             font-size: 10pt;
             font-family: Liberation Mono;
         }
-        
+
         #right-buttons
         {
             float: right;
             font-size: 4rem;
             margin-right: 3rem;
         }
-        
+
         #favorite
         {
             cursor: pointer;
         }
-        
+
         #trash
         {
             cursor: pointer;
         }
-        
+
         samp
         {
             font-family: inherit;
         }
-        
+
         pre#code-kdevelop
         {
             width: auto;
             overflow-y: auto;
         }
-       
+
         pre#code-kdevelop samp
         {
             counter-increment: line;
         }
-        
+
         pre#code-kdevelop samp:before
         {
             content: counter(line);
@@ -109,7 +109,7 @@
             margin-right: .5em;
             color: #888
         }
-        
+
         pre#code-kdevelop i { color: #888; font-style: normal; }
         pre#code-kdevelop i.doc { color: #00f; }
         pre#code-kdevelop i.command { color: #CA60CA; font-weight: bold; font-style: normal;}
@@ -142,9 +142,9 @@
         pre#code-kdevelop .col7 { color:#00F718 }
         pre#code-kdevelop .col8 { color:#00BBCD }
         pre#code-kdevelop .col9 { color:#0053FF }
-        
+
         pre#code-kdevelop.dark { background-color: #002b36; color: #839496; }
-        
+
         pre#code-kdevelop.dark i { color: #268bd2; font-style: normal; }
         pre#code-kdevelop.dark b { color: #859900;  font-weight: bold; }
         pre#code-kdevelop.dark em { color: #b58900;  font-weight: bold; font-style: normal; }
@@ -159,7 +159,7 @@
         pre#code-kdevelop.dark .local { color: #d33682; }
         pre#code-kdevelop.dark .member { color: #cb4b16; }
         pre#code-kdevelop.dark dfn { font-style: normal }
-        
+
         pre#clickhouse-client
         {
             display: none;
@@ -167,55 +167,55 @@
             color: #b2b2b2;
             padding: 0.1rem;
         }
-        
+
         pre#clickhouse-client b
         {
             font-weight: bold;
             color: white;
         }
-        
+
         pre#clickhouse-client b.lightgreen
         {
             font-weight: bold;
             color: #54ff54;
         }
-        
+
         pre#clickhouse-client b.lightblue
         {
             font-weight: bold;
             color: #5454ff;
         }
-        
+
         pre#clickhouse-client b.darkcyan
         {
             font-weight: normal;
             color: #18b2b2;
         }
-        
+
         pre#clickhouse-client b.darkyellow
         {
             font-weight: normal;
             color: #b26818;
         }
-        
+
         pre#clickhouse-client b.darkgreen
         {
             font-weight: normal;
             color: #18b218;
         }
-        
+
         pre#textarea
         {
             display: none;
             height: 100%;
             margin: 1rem 2.5rem;
         }
-        
+
         textarea:focus
         {
             outline: none !important;
         }
-        
+
         pre#textarea textarea
         {
             background-color: white;
@@ -228,13 +228,13 @@
             box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
             padding: 0.5rem;
         }
-        
+
         pre#textarea.dark textarea
         {
             background-color: black;
             color: white;
         }
-        
+
         pre#about, pre#description
         {
             display: none;
@@ -244,27 +244,27 @@
             overflow-y: scroll;
             white-space: pre-wrap;
         }
-        
+
         pre#about.dark
         {
             background-color: #002b36;
             color: #CCC;
         }
-        
+
         a
         {
             color: #08F;
             text-decoration: none;
         }
-        
+
         a:hover, a:active
         {
             color: #F80;
             text-decoration: underline;
         }
         </style>
-    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&amp;family=B612+Mono:wght@400;700&amp;family=Courier+Prime:wght@400;700&amp;family=Cousine&amp;family=Cutive+Mono&amp;family=DM+Mono:wght@400;500&amp;family=Fira+Code:wght@300;400&amp;family=Fira+Mono:wght@400;500;700&amp;family=IBM+Plex+Mono&amp;family=Inconsolata:wght@300;400&amp;family=Nanum+Gothic+Coding:wght@400;700&amp;family=Nova+Mono&amp;family=Overpass+Mono:wght@300;400;700&amp;family=Oxygen+Mono&amp;family=PT+Mono&amp;family=Roboto+Mono&amp;family=Share+Tech+Mono&amp;family=Source+Code+Pro:wght@300;400&amp;family=Space+Mono:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&amp;family=B612+Mono:wght@400;700&amp;family=Courier+Prime:wght@400;700&amp;family=Cousine&amp;family=Cutive+Mono&amp;family=DM+Mono:wght@400;500&amp;family=Fira+Code:wght@300;400&amp;family=Fira+Mono:wght@400;500;700&amp;family=IBM+Plex+Mono&amp;family=Inconsolata:wght@300;400&amp;family=Nanum+Gothic+Coding:wght@400;700&amp;family=Nova+Mono&amp;family=Overpass+Mono:wght@300;400;700&amp;family=Oxygen+Mono&amp;family=PT+Mono&amp;family=Roboto+Mono&amp;family=Share+Tech+Mono&amp;family=Source+Code+Pro:wght@300;400&amp;family=Space+Mono:wght@400;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
@@ -272,9 +272,9 @@
 <div>
     <ul id="fonts_list">
     </ul>
-    
+
 <div id="right-buttons"><span id="favorite">❤</span> <span id="trash">🗑</span></div>
-    
+
     <ul id="sizes_list">
         <li>7pt</li>
         <li>8pt</li>
@@ -291,7 +291,7 @@
         <li>19pt</li>
         <li>20pt</li>
     </ul>
-    
+
     <ul id="examples_list">
         <li class="selected" data-pre-id="code-kdevelop" data-set-class="">KDevelop</li>
         <li data-pre-id="code-kdevelop" data-set-class="dark">KDevelop (dark)</li>
@@ -312,7 +312,7 @@ In fact it's created because I had some curiosity about monospace fonts.
 It allows to quickly check how fonts will look without installation, directly from web browser.
 Fonts may take significant time to load.
 
-Source code: ...
+Source code: <a href="https://github.com/alexey-milovidov/font-selector">https://github.com/alexey-milovidov/font-selector</a>
 If you will find the information on this website inaccurate,
 or if you want to extend this website, please make pull requests.
 
@@ -328,7 +328,7 @@ In low-DPI monitors you may see how individual pixels are laid out, how well tex
 To improve quality of font rendering, anti-aliasing and hinting may be required.
 (It is not needed in CRT monitors that you are unlikely to use).
 
-Anti-aliasing can be "grayscale" and "subpixel". 
+Anti-aliasing can be "grayscale" and "subpixel".
 Subpixel antialiasing will produce more sharp text with slightly noticeable distortion of colors.
 It's a matter of habit, what type of antialiasing would you prefer.
 
@@ -345,7 +345,7 @@ For example, 13" laptop with 1920x1080 resolution have medium DPI and you may fi
 
 There are also bitmap (old-school) fonts that does not require any antialiasing or hinting
 (they are already perfectly laid out in pixels). But they can work only in certain sizes.
-On retina monitors their usage is mostly impractical. 
+On retina monitors their usage is mostly impractical.
 They will not display correctly on MacBook because it is using non-integer scaling factor for pixels.
 
 
@@ -353,7 +353,7 @@ They will not display correctly on MacBook because it is using non-integer scali
 
 Different OS implement different mechanisms for font rendering.
 
-Mac OS X does not use subpixel antialiasing nor hinting. 
+Mac OS X does not use subpixel antialiasing nor hinting.
 Text will appear slightly blurred on non-"retina" displays and just fine on "retina" displays.
 
 Windows is using "ClearType" rendering method that supports both subpixel antialiasing and hinting.
@@ -453,7 +453,7 @@ Examples for Mac OS X: <b>Monaco</b>, <b>Menlo</b>, <b>SF-Mono</b>.
 Examples for Windows: <b>Lucida Console</b>, <b>Consolas</b>.
 These fonts can be selected only if available in your OS.
 
-Some fonts are non-free and purchased separately. 
+Some fonts are non-free and purchased separately.
 Examples: <b>Cartograph</b> (trial download available), <b>Pragmata Pro</b>, <b>MonoLisa</b>.
 These fonts are not included on the website.
 
@@ -1207,7 +1207,7 @@ For KDevelop and Kate, the font is <b>Liberation Mono 9</b>, for Konsole it's <b
 </pre>
 
 <pre id="clickhouse-client">
-<b class="lightgreen">milovidov@milovidov-desktop</b>:<b class="lightblue">~/work/ClickHouse</b>$ clickhouse-client 
+<b class="lightgreen">milovidov@milovidov-desktop</b>:<b class="lightblue">~/work/ClickHouse</b>$ clickhouse-client
 ClickHouse client version 20.7.1.1.
 Connecting to localhost:9000 as user default.
 Connected to ClickHouse server version 20.7.1 revision 54437.
@@ -1386,13 +1386,13 @@ Pack my box with five dozen liquor jugs.
     {
         var li = document.createElement('li');
         li.innerHTML = elem.name;
-        
+
         if (elem.name == 'Liberation Mono')
         {
             li.className = 'selected';
 //            $('#description').text(elem.description);
         }
-        
+
         var fonts_list = document.getElementById('fonts_list');
         fonts_list.appendChild(li);
         fonts_list.appendChild(document.createTextNode(' '));
@@ -1402,7 +1402,7 @@ Pack my box with five dozen liquor jugs.
     (function (document) {
         var width;
         var body = document.body;
-        
+
         var createContainer = function(chars)
         {
             var container = document.createElement('span');
@@ -1415,53 +1415,53 @@ Pack my box with five dozen liquor jugs.
             ].join(' !important;');
             return container;
         }
-    
+
         var getWidth = function(font_family, elem)
         {
             elem.style.fontFamily = font_family;
-        
+
             body.appendChild(elem);
             width = elem.clientWidth;
             body.removeChild(elem);
-        
+
             return width;
         };
-        
+
         var latin_elem = createContainer('wi');
-        var latin = 
+        var latin =
         {
             elem: latin_elem,
             mono_width: getWidth('monospace', latin_elem),
             serif_width: getWidth('serif', latin_elem),
             sans_width: getWidth('sans-serif', latin_elem),
         };
-        
+
         var cyrillic_elem = createContainer('абвгдеёжзийклмнопрстуфхцчшщъыьэюя');
-        var cyrillic = 
+        var cyrillic =
         {
             elem: cyrillic_elem,
             mono_width: getWidth('monospace', cyrillic_elem),
             serif_width: getWidth('serif', cyrillic_elem),
             sans_width: getWidth('sans-serif', cyrillic_elem),
         };
-    
+
         var isFontAvailableImpl = function(font, script)
         {
             return script.mono_width !== getWidth(font + ',monospace', script.elem)
                 || script.sans_width !== getWidth(font + ',sans-serif', script.elem)
                 || script.serif_width !== getWidth(font + ',serif', script.elem);
         }
-    
+
         window.isFontAvailable = function(font)
         {
             return isFontAvailableImpl(font, latin);
         };
-        
+
         window.isCyrillicFontAvailable = function(font)
         {
             return isFontAvailableImpl(font, cyrillic);
         };
-        
+
         var box_drawing_check = document.createElement('span');
         box_drawing_check.style.cssText = [
             'position:absolute',
@@ -1469,7 +1469,7 @@ Pack my box with five dozen liquor jugs.
             'font-size:10pt',
             'left:-9999px'
         ].join(' !important;');
-        
+
         window.isBoxDrawingAvailable = function(font)
         {
             box_drawing_check.style.fontFamily = font;
@@ -1479,7 +1479,7 @@ Pack my box with five dozen liquor jugs.
             box_drawing_check.innerHTML = Array(100).join('x');
             width_chars = box_drawing_check.clientWidth;
             body.removeChild(box_drawing_check);
-            
+
             return width_box === width_chars;
         };
     })(document);
@@ -1495,16 +1495,16 @@ Pack my box with five dozen liquor jugs.
                 $('#fonts_list li.selected').removeClass("selected");
                 $(this).addClass("selected");
                 $('pre').css("font-family", '"' + font + '"');
-                
+
 /*                var description = fonts.filter(x => x.name == font)[0].description;
                 $('#description').text(description);
-                
+
                 if (description)
                 {
                     $('#selector-font-description').css('display', 'inline');
                 }
                 else
-                {   
+                {
                     $('#selector-font-description').hide();
                 }*/
             });
@@ -1514,19 +1514,19 @@ Pack my box with five dozen liquor jugs.
             $(this).addClass("disabled");
         }
     });
-    
+
     $('#trash').click(function()
     {
         $('#fonts_list li.selected').remove();
     });
-    
+
     $('#favorite').click(function()
     {
         $('#fonts_list li.selected').prependTo('#fonts_list');
     });
-    
+
     /// Fonts may load with delay. Will refresh information about their availability.
-    
+
     setInterval(function()
     {
         $('#fonts_list li.disabled').each(function()
@@ -1541,12 +1541,12 @@ Pack my box with five dozen liquor jugs.
                     $(this).addClass("selected");
                     $('pre').css("font-family", font);
                 });
-                
+
                 if (!isCyrillicFontAvailable(font))
                 {
                     $(this).addClass('no-cyrillic');
                 }
-                
+
                 if (!isBoxDrawingAvailable(font))
                 {
                     $(this).addClass('no-box-drawing');
@@ -1554,26 +1554,26 @@ Pack my box with five dozen liquor jugs.
             }
         });
     }, 1000);
-    
+
     $('#sizes_list li').click(function()
     {
         $('#sizes_list li.selected').removeClass("selected");
         $(this).addClass("selected");
         $('pre').css("font-size", $(this).text());
     });
-    
+
     $('#examples_list li').click(function()
     {
         $('#examples_list li.selected').removeClass("selected");
         $(this).addClass("selected");
-    
+
         var pre_id = $(this).attr('data-pre-id');
         var set_class = $(this).attr('data-set-class');
-        
+
         $('pre').each(function()
         {
             $(this).toggle(this.id == pre_id).attr("class", set_class);
-        }); 
+        });
     });
 </script>
 </html>
